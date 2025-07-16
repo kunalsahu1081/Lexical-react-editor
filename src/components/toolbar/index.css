@@ -1,0 +1,66 @@
+
+.toolbar {
+
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 8px;
+    background: white;
+    border-radius: 12px;
+    height: 120px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 520px;
+    margin: 60px auto;
+
+    .tbRow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: min-content;
+    }
+
+    .tbSection {
+
+        height: min-content;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+    }
+
+    .separator {
+
+        width: 2px;
+        border-radius: 1px;
+        height: 20px;
+        background: rgba(190, 164, 164, 0.47);
+
+    }
+
+    .buttonTB {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 24px;
+        width: 24px;
+        border-radius: 4px;
+        /*background: #f3d8d8;*/
+        cursor: pointer;
+        border: none;
+
+        font-size: 13px;
+        font-weight: 600;
+
+    }
+
+    .buttonTB:hover {
+        background: #f8f3f3;
+        border: 1px solid #3a3939;
+    }
+
+    .buttonTB:active {
+        background: #ffffff;
+        border: 1px solid #3a3939;
+    }
+}
