@@ -25,3 +25,50 @@ p {
 .line-through-strike {
    text-decoration: underline line-through;
 }
+
+/*  Fonts */
+
+@font-face {
+  font-family: 'OVSoge-Black';
+  src: url('/src/assets/fonts/OVSoge-Black.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick';
+  src: url('/src/assets/fonts/Quicky Nick.otf');
+}
+
+@font-face {
+  font-family: 'Gantians';
+  src: url('/src/assets/fonts/Gantians.otf');
+}
+
+@font-face {
+  font-family: 'OVSoge-Bold';
+  src: url('/src/assets/fonts/OVSoge-Bold.otf');
+}
+
+@font-face {
+  font-family: 'OVSoge-Regular';
+  src: url('/src/assets/fonts/OVSoge-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick 3D';
+  src: url('/src/assets/fonts/Quicky Nick 3D.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick Condensed Straight';
+  src: url('/src/assets/fonts/Quicky Nick Condensed Straight.otf');
+}
+
+@font-face {
+  font-family: 'QuickyNickExpanded';
+  src: url('/src/assets/fonts/QuickyNickExpanded.otf');
+}
+
+@font-face {
+  font-family: 'QuickyNickGradient';
+  src: url('/src/assets/fonts/QuickyNickGradient.otf');
+}

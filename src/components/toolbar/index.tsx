@@ -65,6 +65,27 @@ TB.btn = ({children, onPress}) => {
 
     </>
 
+}
+
+TB.dropdown = ({children, onChange}) => {
+
+    return <>
+
+        <select onChange={onChange} className={'tbSelect'}>
+            {children}
+        </select>
+
+    </>
+
+}
+
+TB.dItem = ({children}) => {
+
+    return <>
+
+        <option value={children}>{children}</option>
+
+    </>
 
 }
 

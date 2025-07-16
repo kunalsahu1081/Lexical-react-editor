@@ -63,4 +63,27 @@
         background: #ffffff;
         border: 1px solid #3a3939;
     }
+
+    .tbSelect {
+        appearance: none;
+        padding: 0 4px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #F0F0F0;
+        height: 24px;
+        width: 200px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .tbSelect:hover {
+        background: #f8f3f3;
+        border: 1px solid #3a3939;
+    }
+
+    .tbSelect:active {
+        background: #ffffff;
+        border: 1px solid #3a3939;
+    }
 }
