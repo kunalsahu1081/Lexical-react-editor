@@ -1,6 +1,6 @@
 import TB from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {$getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND} from 'lexical';
+import {$createParagraphNode, $createTextNode, $getNodeByKey, $getRoot, $getSelection, $isParagraphNode, $isRangeSelection, FORMAT_TEXT_COMMAND} from 'lexical';
 import {$patchStyleText} from '@lexical/selection'
 import {useCallback} from "react";
 import {FaStrikethrough} from "react-icons/fa";
@@ -39,7 +39,25 @@ const Toolbar = () => {
         editor.update(() => {
             const selection = $getSelection();
             if ($isRangeSelection(selection)) {
-                $patchStyleText(selection, {"font-family": font_name});
+                $patchStyleText(selection, {color: 'blue', "font-family": font_name});
+            }
+        });
+
+    }, [editor])
+
+    const logSiblings = useCallback(() => {
+
+
+        editor.update(() => {
+            const selection = $getSelection();
+            if ($isRangeSelection(selection)) {
+
+                const selectedNodes = selection.getNodes();
+
+                const paragraphs = selectedNodes
+                    .filter((node) => $isParagraphNode(node));
+
+
             }
         });
 
@@ -69,6 +87,10 @@ const Toolbar = () => {
 
                     <TB.btn onPress={() => formatText('strikethrough')}>
                         <FaStrikethrough/>
+                    </TB.btn>
+
+                    <TB.btn onPress={() => logSiblings()}>
+                        L
                     </TB.btn>
 
                 </TB.section>

@@ -1,5 +1,4 @@
 import {LexicalComposer} from "@lexical/react/LexicalComposer";
-import {ParagraphNode, TextNode} from "lexical";
 import {HistoryPlugin} from "@lexical/react/LexicalHistoryPlugin";
 import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary";
 import {ContentEditable} from "@lexical/react/LexicalContentEditable";
@@ -7,6 +6,7 @@ import {RichTextPlugin} from "@lexical/react/LexicalRichTextPlugin";
 import * as React from "react";
 import './editor.css'
 import Toolbar from "@/features/Toolbar";
+import {ParagraphNode, TextNode} from "lexical";
 
 
 const Editor = () => {
