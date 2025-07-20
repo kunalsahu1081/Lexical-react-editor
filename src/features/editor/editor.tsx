@@ -7,7 +7,7 @@ import * as React from "react";
 import './editor.css'
 import Toolbar from "@/features/Toolbar";
 import {ParagraphNode, TextNode} from "lexical";
-import {MyParagraphNode} from "@/Plugins/MyParagraphNode";
+import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
 
 
 const Editor = () => {

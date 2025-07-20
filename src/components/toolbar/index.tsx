@@ -52,12 +52,12 @@ TB.row = ({children}) => {
 
 }
 
-TB.btn = ({children, onPress}) => {
+TB.btn = ({children, onPress, isActive}) => {
 
 
     return <>
 
-        <button onClick={onPress} className={'buttonTB'}>
+        <button onClick={onPress} className={`buttonTB ${isActive ? 'btnActive': ''}`}>
 
             {children}
 

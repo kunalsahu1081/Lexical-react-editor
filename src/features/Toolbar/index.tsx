@@ -1,11 +1,11 @@
 import TB from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {$createParagraphNode, $createTextNode, $getNodeByKey, $getRoot, $getSelection, $isParagraphNode, $isRangeSelection, FORMAT_TEXT_COMMAND} from 'lexical';
+import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode, FORMAT_TEXT_COMMAND} from 'lexical';
 import {$patchStyleText} from '@lexical/selection'
-import {useCallback} from "react";
-import {FaStrikethrough} from "react-icons/fa";
-import {FaUnderline} from "react-icons/fa";
-import {$createMyParagraphNode, $isMyParagraphNode} from "@/Plugins/MyParagraphNode";
+import {useCallback, useEffect} from "react";
+import {FaStrikethrough, FaUnderline, FaAlignCenter, FaAlignLeft, FaAlignRight, FaAlignJustify   } from "react-icons/fa";
+import {$createMyParagraphNode, $isMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
+import {useToolbarState} from "@/services/hooks/hkToolbarState";
 
 
 const font_list = [
@@ -24,6 +24,8 @@ const font_list = [
 const Toolbar = () => {
 
     const [editor] = useLexicalComposerContext();
+
+    const toolBarState = useToolbarState(editor);
 
 
     const formatText = useCallback((command) => {
@@ -46,7 +48,7 @@ const Toolbar = () => {
 
     }, [editor])
 
-    const logSiblings = useCallback(() => {
+    const applyParagraphStyles = useCallback((style) => {
 
 
         editor.update(() => {
@@ -61,15 +63,31 @@ const Toolbar = () => {
                 const mutatedParagraphs = selectedNodes
                     .filter((node) => $isMyParagraphNode(node));
 
+                if (!paragraphs.length && !mutatedParagraphs.length) {
+
+                    const textNodes = selectedNodes
+                    .filter((node) => $isTextNode(node));
+
+                    textNodes.forEach((node) => {
+
+                        const parentParagraph = node.getParent();
+
+                        if ($isMyParagraphNode(parentParagraph)) mutatedParagraphs.push(parentParagraph);
+                        else paragraphs.push(parentParagraph);
+
+                    })
+
+                }
+
                 mutatedParagraphs.forEach((paragraph) => {
 
-                    paragraph.setParagrphStyle("color: green;");
+                    paragraph.setParagrphStyle(paragraph.__custom_inline_style + ' ' + style);
 
                 })
 
                 paragraphs.forEach((paragraph) => {
 
-                    const {node} = $createMyParagraphNode("color: blue;");
+                    const {node} = $createMyParagraphNode(style);
 
                     const children = paragraph.getChildren().slice();
 
@@ -87,6 +105,10 @@ const Toolbar = () => {
 
     }, [editor])
 
+    useEffect(() => {
+        console.log(toolBarState);
+    }, [toolBarState]);
+
 
     return <>
 
@@ -96,25 +118,21 @@ const Toolbar = () => {
             <TB.row>
                 <TB.section>
 
-                    <TB.btn onPress={() => formatText('bold')}>
+                    <TB.btn isActive={toolBarState.is_bold} onPress={() => formatText('bold')}>
                         B
                     </TB.btn>
 
 
-                    <TB.btn onPress={() => formatText('italic')}>
+                    <TB.btn isActive={toolBarState.is_italic} onPress={() => formatText('italic')}>
                         I
                     </TB.btn>
 
-                    <TB.btn onPress={() => formatText('underline')}>
+                    <TB.btn isActive={toolBarState.is_underline} onPress={() => formatText('underline')}>
                         <FaUnderline/>
                     </TB.btn>
 
-                    <TB.btn onPress={() => formatText('strikethrough')}>
+                    <TB.btn isActive={toolBarState.is_strike} onPress={() => formatText('strikethrough')}>
                         <FaStrikethrough/>
-                    </TB.btn>
-
-                    <TB.btn onPress={() => logSiblings()}>
-                        L
                     </TB.btn>
 
                 </TB.section>
@@ -134,6 +152,27 @@ const Toolbar = () => {
 
                     </TB.dropdown>
 
+                </TB.section>
+
+                <TB.separator/>
+
+                <TB.section>
+
+                    <TB.btn onPress={() => applyParagraphStyles("text-align: center;")}>
+                        <FaAlignCenter />
+                    </TB.btn>
+
+                     <TB.btn onPress={() => applyParagraphStyles("text-align: left;")}>
+                        <FaAlignLeft />
+                    </TB.btn>
+
+                     <TB.btn onPress={() => applyParagraphStyles("text-align: right;")}>
+                        <FaAlignRight />
+                    </TB.btn>
+
+                     <TB.btn onPress={() => applyParagraphStyles("text-align: justify;")}>
+                        <FaAlignJustify />
+                    </TB.btn>
 
                 </TB.section>
 
