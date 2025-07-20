@@ -7,6 +7,7 @@ import * as React from "react";
 import './editor.css'
 import Toolbar from "@/features/Toolbar";
 import {ParagraphNode, TextNode} from "lexical";
+import {MyParagraphNode} from "@/Plugins/MyParagraphNode";
 
 
 const Editor = () => {
@@ -18,7 +19,7 @@ const Editor = () => {
         <LexicalComposer initialConfig={{
             namespace: 'VanillaLexicalEditor',
             onError: (error) => console.error('Lexical Error:', error),
-            nodes: [ParagraphNode, TextNode],
+            nodes: [ParagraphNode, TextNode, MyParagraphNode],
             theme: {
                 text: {
                     bold: "bold",

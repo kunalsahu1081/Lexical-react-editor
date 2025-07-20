@@ -5,6 +5,7 @@ import {$patchStyleText} from '@lexical/selection'
 import {useCallback} from "react";
 import {FaStrikethrough} from "react-icons/fa";
 import {FaUnderline} from "react-icons/fa";
+import {$createMyParagraphNode, $isMyParagraphNode} from "@/Plugins/MyParagraphNode";
 
 
 const font_list = [
@@ -55,7 +56,30 @@ const Toolbar = () => {
                 const selectedNodes = selection.getNodes();
 
                 const paragraphs = selectedNodes
-                    .filter((node) => $isParagraphNode(node));
+                    .filter((node) => $isParagraphNode(node) && !$isMyParagraphNode(node));
+
+                const mutatedParagraphs = selectedNodes
+                    .filter((node) => $isMyParagraphNode(node));
+
+                mutatedParagraphs.forEach((paragraph) => {
+
+                    paragraph.setParagrphStyle("color: green;");
+
+                })
+
+                paragraphs.forEach((paragraph) => {
+
+                    const {node} = $createMyParagraphNode("color: blue;");
+
+                    const children = paragraph.getChildren().slice();
+
+                    for (const child of children) {
+                        node.append(child);
+                    }
+
+                    paragraph.replace(node, true);
+
+                })
 
 
             }
