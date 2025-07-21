@@ -12,6 +12,7 @@ interface IToolBarState {
     color: string,
     font: string,
     align: string,
+    background: string;
 
 }
 
@@ -25,6 +26,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
         color: undefined,
         font: undefined,
         align: "left",
+        background: undefined,
     })
 
 
@@ -51,6 +53,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         color: "",
                         font: "",
                         align: "left",
+                        background: undefined,
                     };
 
                     if (textNode instanceof TextNode) {
@@ -77,6 +80,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         newToolbarState.is_underline = textNode.hasFormat('underline');
                         newToolbarState.color = mapped_styles?.color;
                         newToolbarState.font = mapped_styles["font-family"];
+                        newToolbarState.background = mapped_styles["background"];
 
                         if (!isEqual(newToolbarState, toolbarState)) {
                             setToolBarState(newToolbarState);
