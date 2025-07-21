@@ -50,7 +50,7 @@ const TextColor = ({color, changeColorState}) => {
         </TB.btn>
 
         <div
-            onClick={(ev) => {
+            onMouseDown={(ev) => {
                 ev.preventDefault();
                 ev.stopPropagation();
             }}
