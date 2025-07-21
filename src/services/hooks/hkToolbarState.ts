@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import {$getSelection, $isRangeSelection, $isTextNode, LexicalEditor, TextNode} from "lexical";
+import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
+import {isEqual} from 'lodash'
 
 interface IToolBarState {
 
@@ -20,8 +22,8 @@ export const useToolbarState = (editor: LexicalEditor) => {
         is_underline: false,
         is_strike: false,
         is_italic: false,
-        color: "",
-        font: "",
+        color: undefined,
+        font: undefined,
         align: "left",
     })
 
@@ -29,6 +31,9 @@ export const useToolbarState = (editor: LexicalEditor) => {
     useEffect(() => {
 
         return editor.registerUpdateListener(({editorState}) => {
+
+            console.log('triggered')
+
             editorState.read(() => {
                 const selection = $getSelection();
                 if ($isRangeSelection(selection)) {
@@ -38,22 +43,66 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         ? anchorNode
                         : anchorNode.getFirstDescendant();
 
+                    const newToolbarState = {
+                        is_bold: false,
+                        is_underline: false,
+                        is_strike: false,
+                        is_italic: false,
+                        color: "",
+                        font: "",
+                        align: "left",
+                    };
+
                     if (textNode instanceof TextNode) {
-                        setToolBarState({
-                            ...toolbarState,
-                            is_bold: textNode.hasFormat('bold'),
-                            is_italic: textNode.hasFormat('italic'),
-                            is_underline: textNode.hasFormat('underline'),
-                            is_strike: textNode.hasFormat("strikethrough")
-                        });
+
+                        const parentParagraph = textNode.getParent() as MyParagraphNode;
+
+                        if (parentParagraph && parentParagraph instanceof MyParagraphNode) {
+
+                            const styles = parentParagraph.getLatest()?.__custom_inline_style;
+
+                            const mapped_styles = getMappedStyles(styles);
+
+                            newToolbarState.align = mapped_styles["text-align"];
+
+                        }
+
+                        const styles = textNode.getLatest().getStyle();
+
+                        const mapped_styles = getMappedStyles(styles);
+
+                        newToolbarState.is_bold = textNode.hasFormat('bold');
+                        newToolbarState.is_italic = textNode.hasFormat('italic');
+                        newToolbarState.is_strike = textNode.hasFormat("strikethrough");
+                        newToolbarState.is_underline = textNode.hasFormat('underline');
+                        newToolbarState.color = mapped_styles?.color;
+                        newToolbarState.font = mapped_styles["font-family"];
+
+                        if (!isEqual(newToolbarState, toolbarState)) {
+                            setToolBarState(newToolbarState);
+                        }
                     }
                 }
             });
         });
 
-    }, [editor]);
+    }, [editor, toolbarState]);
 
 
     return toolbarState
 
+}
+
+const getMappedStyles = (styles) => {
+    const mapped_styles: object = styles
+        .split(';')
+        .map(rule => rule.trim())
+        .filter(rule => rule)
+        .reduce((acc, rule) => {
+            const [key, value] = rule.split(':').map(s => s.trim());
+            acc[key] = value;
+            return acc;
+        }, {});
+
+    return mapped_styles
 }

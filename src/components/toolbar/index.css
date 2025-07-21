@@ -2,6 +2,7 @@
 .toolbar {
 
     display: flex;
+    flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
     gap: 8px;
@@ -82,6 +83,11 @@
         border-radius: 4px;
         border: none;
         cursor: pointer;
+    }
+
+    .selected {
+        background: #f8f3f3;
+        border: 1px solid #3a3939;
     }
 
     .tbSelect:hover {

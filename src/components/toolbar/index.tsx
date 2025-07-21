@@ -67,11 +67,11 @@ TB.btn = ({children, onPress, isActive}) => {
 
 }
 
-TB.dropdown = ({children, onChange}) => {
+TB.dropdown = ({children, onChange, value}) => {
 
     return <>
 
-        <select onChange={onChange} className={'tbSelect'}>
+        <select value={value} onChange={onChange} className={`tbSelect ${value ? 'selected' : ''}`}>
             {children}
         </select>
 
