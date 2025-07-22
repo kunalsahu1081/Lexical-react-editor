@@ -1,13 +1,14 @@
 import TB from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode, FORMAT_TEXT_COMMAND} from 'lexical';
+import {FORMAT_TEXT_COMMAND} from 'lexical';
 import {useCallback, useEffect, useState} from "react";
 import {FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight, FaStrikethrough, FaUnderline} from "react-icons/fa";
-import {$createMyParagraphNode, $isMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
 import {useToolbarState} from "@/services/hooks/hkToolbarState";
 import FontPicker from "@/features/Toolbar/sections/fontPicker";
 import TextColor from "@/features/Toolbar/sections/textColor";
 import HighlightText from "@/features/Toolbar/sections/highlightText";
+import {applyStylesToParagraph} from "@/utils/editor";
+import LineSpacing from "@/features/Toolbar/sections/lineSpacing";
 
 
 const Toolbar = () => {
@@ -39,58 +40,7 @@ const Toolbar = () => {
 
     const applyParagraphStyles = useCallback((style) => {
 
-
-        editor.update(() => {
-            const selection = $getSelection();
-            if ($isRangeSelection(selection)) {
-
-                const selectedNodes = selection.getNodes();
-
-                const paragraphs = selectedNodes
-                    .filter((node) => $isParagraphNode(node) && !$isMyParagraphNode(node));
-
-                const mutatedParagraphs = selectedNodes
-                    .filter((node) => $isMyParagraphNode(node));
-
-                if (!paragraphs.length && !mutatedParagraphs.length) {
-
-                    const textNodes = selectedNodes
-                        .filter((node) => $isTextNode(node));
-
-                    textNodes.forEach((node) => {
-
-                        const parentParagraph = node.getParent();
-
-                        if ($isMyParagraphNode(parentParagraph)) mutatedParagraphs.push(parentParagraph);
-                        else paragraphs.push(parentParagraph);
-
-                    })
-
-                }
-
-                mutatedParagraphs.forEach((paragraph) => {
-
-                    paragraph.setParagrphStyle(paragraph.__custom_inline_style + ' ' + style);
-
-                })
-
-                paragraphs.forEach((paragraph) => {
-
-                    const {node} = $createMyParagraphNode(style);
-
-                    const children = paragraph.getChildren().slice();
-
-                    for (const child of children) {
-                        node.append(child);
-                    }
-
-                    paragraph.replace(node, true);
-
-                })
-
-
-            }
-        });
+        applyStylesToParagraph(editor, style);
 
     }, [editor])
 
@@ -161,6 +111,8 @@ const Toolbar = () => {
                     <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
 
                     <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
+
+                    <LineSpacing />
 
                 </TB.section>
 

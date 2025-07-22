@@ -8,6 +8,11 @@ p {
 
 }
 
+body {
+    background: #d6d9da;
+    zoom: 1.25;
+}
+
 .italics {
 
    font-style: italic;

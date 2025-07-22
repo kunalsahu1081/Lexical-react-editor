@@ -1,13 +1,16 @@
 
 .editor {
 
-    height: 500px;
-    width: 500px;
+    height: min(500px, calc(100vh / 1.25 - 340px));
+    width: max(500px, 200px);
+    background: white;
     border-radius: 8px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     position: relative;
     margin: 0 auto 0 auto;
     padding: 12px;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
 }
 
 .editorPlaceholder {
