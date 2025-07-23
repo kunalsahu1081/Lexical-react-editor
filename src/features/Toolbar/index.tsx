@@ -76,7 +76,7 @@ const Toolbar = () => {
 
                 <TB.section>
 
-                    <FontPicker font={c_toolbar_state.font} />
+                    <FontPicker sfont={c_toolbar_state.font} />
 
                 </TB.section>
 

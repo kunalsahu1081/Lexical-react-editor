@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import TB from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
@@ -6,51 +6,83 @@ import {$patchStyleText} from "@lexical/selection";
 
 
 const font_list = [
-    'OVSoge-Black',
-    'OVSoge-Bold',
-    'OVSoge-Regular',
-    'Quicky Nick 3D',
-    'Quicky Nick Condensed Straight',
-    'Quicky Nick',
-    'QuickyNickExpanded',
-    'QuickyNickGradient',
-    'Gantians'
+    "Roboto",
+    "Winky Rough",
+    "Work Sans",
+    "Fira Sans",
+    "Bitcount Prop Single",
+    "Bitcount Prop Double"
 ]
 
 
-
-const FontPicker = ({font}) => {
+const FontPicker = ({sfont}) => {
 
     const [editor] = useLexicalComposerContext();
 
+    const [show_dropdown, set_show_dropdown] = useState(false);
+
     const onFontChange = useCallback((event) => {
 
-        const font_name = event?.target?.value;
+        const font_name = event;
+
+        set_show_dropdown(false)
 
         editor.update(() => {
             const selection = $getSelection();
             if ($isRangeSelection(selection)) {
-                $patchStyleText(selection, {color: 'blue', "font-family": font_name});
+                $patchStyleText(selection, {"font-family": font_name});
             }
         });
 
     }, [editor])
 
+    const closeColorPicker = (ev) => {
+        const element = document.getElementById('fontDropdown');
 
-    return <>
+        if (element.contains(ev.target)) {
+            return;
+        }
 
-        <TB.dropdown onChange={onFontChange} value={font}>
+        set_show_dropdown(false);
+    }
 
-            {font_list.map((font) => {
-                return <>
-                    <TB.dItem>{font}</TB.dItem>
-                </>
-            })}
+    useEffect(() => {
+        document.addEventListener('mousedown', closeColorPicker);
+
+        return () => {
+            document.removeEventListener('mousedown', closeColorPicker);
+        }
+
+    }, []);
+
+
+    return <div id={'fontDropdown'}>
+
+        <TB.dropdown>
+
+            <TB.btn onPress={() => {
+                set_show_dropdown((prev) => !prev)
+            }}>
+                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}>{sfont || "Roboto"}</div>
+            </TB.btn>
+
+            {show_dropdown ? <TB.dropdownL>
+                {font_list.map((font) => {
+                    return <>
+                        <TB.dItem
+                            selected={font === (sfont || "Roboto")}
+                            onClick={() => {
+                                onFontChange(font)
+                            }}
+                        >{font}</TB.dItem>
+                    </>
+                })}
+            </TB.dropdownL> : null}
 
 
         </TB.dropdown>
 
-    </>
+    </div>
 
 }
 

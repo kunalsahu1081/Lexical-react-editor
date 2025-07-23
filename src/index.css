@@ -11,6 +11,12 @@ p {
 body {
     background: #d6d9da;
     zoom: 1.25;
+
+    font-family: "Winky Rough" ;
+}
+
+button {
+    font-family: "Winky Rough";
 }
 
 .italics {

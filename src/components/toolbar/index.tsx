@@ -1,4 +1,5 @@
 import './index.css'
+import {GiCheckMark} from "react-icons/gi";
 
 const TB = ({children}) => {
 
@@ -57,7 +58,7 @@ TB.btn = ({children, onPress, isActive}) => {
 
     return <>
 
-        <button onClick={onPress} className={`buttonTB ${isActive ? 'btnActive': ''}`}>
+        <button onClick={onPress} className={`buttonTB ${isActive ? 'btnActive' : ''}`}>
 
             {children}
 
@@ -69,32 +70,44 @@ TB.btn = ({children, onPress, isActive}) => {
 
 TB.dropdown = ({children, onChange, value,}) => {
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-
-
     return <>
 
-        <select value={value} onChange={onChange} className={`tbSelect ${value ? 'selected' : ''}`}>
+        <div className={'tbDropdown'}>
             {children}
-        </select>
+        </div>
 
     </>
 
 }
 
-TB.dItem = ({children}) => {
+TB.dropdownL = ({children, onChange, value,}) => {
 
     return <>
 
-        <option value={children}>{children}</option>
+        <div className={'tbDropdownList'}>
+            {children}
+        </div>
 
     </>
 
 }
 
+TB.dItem = ({children, selected, onClick}) => {
 
+    return <>
 
+        <div onClick={onClick} className={'tbDItem'}>
 
+            <div style={{height: '10px', width: '20px', fontSize: '10px'}}>
+                {selected ? <GiCheckMark/> : null}
+            </div>
+
+            {children}
+        </div>
+
+    </>
+
+}
 
 
 export default TB;

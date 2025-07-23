@@ -45,7 +45,7 @@
         align-items: center;
         justify-content: center;
         height: 24px;
-        width: 24px;
+        min-width: 24px;
         border-radius: 4px;
         /*background: #f3d8d8;*/
         cursor: pointer;
@@ -98,5 +98,42 @@
     .tbSelect:active {
         background: #ffffff;
         border: 1px solid #3a3939;
+    }
+}
+
+.tbDropdown {
+    position: relative;
+
+    .tbDropdownList {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        z-index: 12;
+        width: 100%;
+
+        border: 1px solid white;
+        transition: border-left-color, border-right-color 1s;
+
+        .tbDItem {
+
+            display: flex;
+            align-items: center;
+            height: 20px;
+            background: white;
+            border-bottom: 1px solid black;
+            padding: 4px 12px;
+            font-size: 12px;
+
+            cursor: pointer;
+
+        }
+
+        .tbDItem:hover {
+            font-weight: 500;
+        }
+    }
+
+    .tbDropdownList:hover {
+        border: 1px solid black;
     }
 }
