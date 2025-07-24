@@ -41,7 +41,7 @@ TB.separator = () => {
 
 }
 
-TB.row = ({children}) => {
+TB.row = ({children, }) => {
 
     return <>
 
@@ -53,12 +53,12 @@ TB.row = ({children}) => {
 
 }
 
-TB.btn = ({children, onPress, isActive}) => {
+TB.btn = ({children, onPress, isActive, style}) => {
 
 
     return <>
 
-        <button onClick={onPress} className={`buttonTB ${isActive ? 'btnActive' : ''}`}>
+        <button  style={style} onClick={onPress} className={`buttonTB ${isActive ? 'btnActive' : ''}`}>
 
             {children}
 

@@ -10,7 +10,7 @@
     border-radius: 12px;
     /*height: 120px;*/
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    width: 520px;
+    width: 480px;
     margin: 60px auto;
 
     .tbRow {
@@ -26,7 +26,7 @@
         height: min-content;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
 
     }
 
@@ -45,7 +45,7 @@
         align-items: center;
         justify-content: center;
         height: 24px;
-        min-width: 24px;
+        width: 24px;
         border-radius: 4px;
         /*background: #f3d8d8;*/
         cursor: pointer;
@@ -106,10 +106,10 @@
 
     .tbDropdownList {
         position: absolute;
-        top: 40px;
+        top: 30px;
         left: 0;
         z-index: 12;
-        width: 100%;
+        min-width: 100%;
 
         border: 1px solid white;
         transition: border-left-color, border-right-color 1s;

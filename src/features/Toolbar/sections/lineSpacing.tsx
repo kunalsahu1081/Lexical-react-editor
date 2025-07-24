@@ -1,13 +1,27 @@
 import React, {useEffect, useState} from "react";
 import TB from "@/components/toolbar";
 import {MdFormatLineSpacing} from "react-icons/md";
+import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {applyStylesToParagraph} from "@/utils/editor";
 
 
-const LineSpacing = ({spacing}) => {
+const spacingList = [
+        1, 1.5, 2, 3
+    ]
+
+
+const LineSpacing = ({Sspacing = 1.5}) => {
 
     const [show_spacing_options, set_show_spacing_options] = useState(false);
 
+    const [editor] = useLexicalComposerContext();
 
+
+    const applyLineSpacing = (spacing) => {
+
+        applyStylesToParagraph(editor, `line-height: ${spacing};`);
+
+    }
 
 
     const closeColorPicker = (ev) => {
@@ -33,33 +47,35 @@ const LineSpacing = ({spacing}) => {
     }, []);
 
 
-    return <div style={{position: 'relative'}} id={'spacing'} >
+    return <div id={'spacing'}>
 
-        <TB.btn
-            onPress={() => {
-                set_show_spacing_options(true)
-            }}
-        >
+        <TB.dropdown>
 
-            <MdFormatLineSpacing/>
+            <TB.btn
+                onPress={() => {
+                    set_show_spacing_options(true)
+                }}
+            >
 
-        </TB.btn>
+                <MdFormatLineSpacing/>
 
-        <div style={{position: "absolute", top: 0}} >
-            {show_spacing_options ? <TB.dropdown autoFocus={true} onChange={() => {}} style={{opacity: 0}} id={'customSpacing'} value={spacing}>
+            </TB.btn>
 
-                <TB.dItem>1</TB.dItem>
 
-                <TB.dItem>2</TB.dItem>
+            {show_spacing_options ?
+                <TB.dropdownL>
 
-                <TB.dItem>
+                    {
+                        spacingList.map((spacing) => {
+                            return <TB.dItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</TB.dItem>
+                        })
+                    }
 
-                    3
+                </TB.dropdownL>
 
-                </TB.dItem>
+                : null}
 
-            </TB.dropdown> : null}
-        </div>
+        </TB.dropdown>
 
     </div>
 

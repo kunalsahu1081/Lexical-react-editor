@@ -13,6 +13,8 @@ interface IToolBarState {
     font: string,
     align: string,
     background: string;
+    line_height: string;
+    p_spacing: number;
 
 }
 
@@ -27,6 +29,8 @@ export const useToolbarState = (editor: LexicalEditor) => {
         font: undefined,
         align: "left",
         background: undefined,
+        line_height: '1',
+        p_spacing: 0,
     })
 
 
@@ -54,6 +58,8 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         font: "",
                         align: "left",
                         background: undefined,
+                        line_height: '1',
+                        p_spacing: 0,
                     };
 
                     if (textNode instanceof TextNode) {
@@ -67,6 +73,8 @@ export const useToolbarState = (editor: LexicalEditor) => {
                             const mapped_styles = getMappedStyles(styles);
 
                             newToolbarState.align = mapped_styles["text-align"];
+                            newToolbarState.line_height = mapped_styles["line-height"];
+                            newToolbarState.p_spacing = mapped_styles["margin-top"].replace('px', '') * 2;
 
                         }
 
@@ -81,6 +89,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         newToolbarState.color = mapped_styles?.color;
                         newToolbarState.font = mapped_styles["font-family"];
                         newToolbarState.background = mapped_styles["background"];
+
 
                         if (!isEqual(newToolbarState, toolbarState)) {
                             setToolBarState(newToolbarState);

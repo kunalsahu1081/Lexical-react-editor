@@ -60,7 +60,7 @@ const FontPicker = ({sfont}) => {
 
         <TB.dropdown>
 
-            <TB.btn onPress={() => {
+            <TB.btn style={{width: '150px'}} onPress={() => {
                 set_show_dropdown((prev) => !prev)
             }}>
                 <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}>{sfont || "Roboto"}</div>
