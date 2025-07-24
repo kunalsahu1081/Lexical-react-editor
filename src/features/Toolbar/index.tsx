@@ -119,6 +119,35 @@ const Toolbar = () => {
 
                 </TB.section>
 
+                <TB.separator/>
+
+                <TB.section>
+
+                    <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
+
+                    <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
+
+                    <LineSpacing Sspacing={c_toolbar_state.line_height} />
+
+                    <ParagraphSpacing Sspacing={c_toolbar_state.p_spacing} />
+
+
+                </TB.section>
+
+                 <TB.separator/>
+
+                <TB.section>
+
+                    <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
+
+                    <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
+
+                    <LineSpacing Sspacing={c_toolbar_state.line_height} />
+
+                    <ParagraphSpacing Sspacing={c_toolbar_state.p_spacing} />
+
+                </TB.section>
+
             </TB.row>
 
         </TB>

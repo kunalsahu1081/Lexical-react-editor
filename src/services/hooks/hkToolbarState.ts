@@ -38,8 +38,6 @@ export const useToolbarState = (editor: LexicalEditor) => {
 
         return editor.registerUpdateListener(({editorState}) => {
 
-            console.log('triggered')
-
             editorState.read(() => {
                 const selection = $getSelection();
                 if ($isRangeSelection(selection)) {
