@@ -25,6 +25,10 @@ button {
 
 }
 
+span {
+    font-size: 12px;
+}
+
 .underline {
    text-decoration: underline;
 }

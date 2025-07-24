@@ -47,7 +47,7 @@
         height: 24px;
         width: 24px;
         border-radius: 4px;
-        /*background: #f3d8d8;*/
+
         cursor: pointer;
         border: none;
 
@@ -58,8 +58,8 @@
     }
 
     .btnActive {
-        background: #cebbbb;
-        border: 2px solid white;
+        background: #f3d8d8;
+        /*border: 2px solid white;*/
     }
 
     .buttonTB:hover {

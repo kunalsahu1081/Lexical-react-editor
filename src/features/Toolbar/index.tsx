@@ -10,6 +10,7 @@ import HighlightText from "@/features/Toolbar/sections/highlightText";
 import {applyStylesToParagraph} from "@/utils/editor";
 import LineSpacing from "@/features/Toolbar/sections/lineSpacing";
 import ParagraphSpacing from "@/features/Toolbar/sections/paragraphSpacing";
+import FontSize from "@/features/Toolbar/sections/fontSize";
 
 
 const Toolbar = () => {
@@ -123,14 +124,7 @@ const Toolbar = () => {
 
                 <TB.section>
 
-                    <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
-
-                    <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
-
-                    <LineSpacing Sspacing={c_toolbar_state.line_height} />
-
-                    <ParagraphSpacing Sspacing={c_toolbar_state.p_spacing} />
-
+                    <FontSize Ssize={c_toolbar_state.size} />
 
                 </TB.section>
 

@@ -18,8 +18,6 @@ const TextColor = ({color, changeColorState}) => {
         editor.update(() => {
             const selection = $getSelection();
 
-            console.log(color, selection)
-
             if ($isRangeSelection(selection)) {
                 $patchStyleText(selection, {color: color.toString()});
             }

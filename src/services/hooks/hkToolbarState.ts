@@ -15,6 +15,7 @@ interface IToolBarState {
     background: string;
     line_height: string;
     p_spacing: number;
+    size: string;
 
 }
 
@@ -31,6 +32,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
         background: undefined,
         line_height: '1',
         p_spacing: 0,
+        size: '12',
     })
 
 
@@ -40,7 +42,13 @@ export const useToolbarState = (editor: LexicalEditor) => {
 
             editorState.read(() => {
                 const selection = $getSelection();
+
+                console.log('asdfa asdfasdf')
+
                 if ($isRangeSelection(selection)) {
+
+                    console.log('but not here somehow')
+
                     const anchorNode = selection.anchor.getNode();
 
                     const textNode = $isTextNode(anchorNode)
@@ -58,7 +66,10 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         background: undefined,
                         line_height: '1',
                         p_spacing: 0,
+                        size: '12'
                     };
+
+                    console.log(textNode instanceof TextNode)
 
                     if (textNode instanceof TextNode) {
 
@@ -87,7 +98,9 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         newToolbarState.color = mapped_styles?.color;
                         newToolbarState.font = mapped_styles["font-family"];
                         newToolbarState.background = mapped_styles["background"];
+                        newToolbarState.size = (mapped_styles["font-size"] || '12px').replace('px', '');
 
+                        console.log(mapped_styles)
 
                         if (!isEqual(newToolbarState, toolbarState)) {
                             setToolBarState(newToolbarState);
