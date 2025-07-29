@@ -43,11 +43,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
             editorState.read(() => {
                 const selection = $getSelection();
 
-                console.log('asdfa asdfasdf')
-
                 if ($isRangeSelection(selection)) {
-
-                    console.log('but not here somehow')
 
                     const anchorNode = selection.anchor.getNode();
 
@@ -69,8 +65,6 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         size: '12'
                     };
 
-                    console.log(textNode instanceof TextNode)
-
                     if (textNode instanceof TextNode) {
 
                         const parentParagraph = textNode.getParent() as MyParagraphNode;
@@ -83,7 +77,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
 
                             newToolbarState.align = mapped_styles["text-align"];
                             newToolbarState.line_height = mapped_styles["line-height"];
-                            newToolbarState.p_spacing = mapped_styles["margin-top"].replace('px', '') * 2;
+                            newToolbarState.p_spacing = (mapped_styles["margin-top"] ? mapped_styles["margin-top"] : '0').replace('px', '') * 2;
 
                         }
 
@@ -100,8 +94,6 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         newToolbarState.background = mapped_styles["background"];
                         newToolbarState.size = (mapped_styles["font-size"] || '12px').replace('px', '');
 
-                        console.log(mapped_styles)
-
                         if (!isEqual(newToolbarState, toolbarState)) {
                             setToolBarState(newToolbarState);
                         }
@@ -117,7 +109,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
 
 }
 
-const getMappedStyles = (styles) => {
+export const getMappedStyles = (styles) => {
     const mapped_styles: object = styles
         .split(';')
         .map(rule => rule.trim())

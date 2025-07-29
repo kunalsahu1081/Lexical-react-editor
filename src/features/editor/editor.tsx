@@ -8,6 +8,8 @@ import './editor.css'
 import Toolbar from "@/features/Toolbar";
 import {ParagraphNode, TextNode} from "lexical";
 import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
+import CustomEnterPress from "@/services/Plugins/customEnterPress";
+import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 
 
 const Editor = () => {
@@ -19,7 +21,7 @@ const Editor = () => {
         <LexicalComposer initialConfig={{
             namespace: 'VanillaLexicalEditor',
             onError: (error) => console.error('Lexical Error:', error),
-            nodes: [ParagraphNode, TextNode, MyParagraphNode],
+            nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode],
             theme: {
                 text: {
                     bold: "bold",
@@ -39,6 +41,8 @@ const Editor = () => {
                 ErrorBoundary={LexicalErrorBoundary}
             />
             <HistoryPlugin/>
+
+            <CustomEnterPress />
 
         </LexicalComposer>
 

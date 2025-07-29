@@ -1,0 +1,74 @@
+import TB from "@/components/toolbar";
+import {MdOutlineChecklist} from "react-icons/md";
+import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {$getRoot, $getSelection, $insertNodes, $isParagraphNode, $isRangeSelection, $isTextNode, ParagraphNode} from "lexical";
+import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
+
+
+const AddChecklist = () => {
+
+    const [editor] = useLexicalComposerContext();
+
+    const onAddRemoveChecklist = () => editor.update(() => {
+
+        const selection = $getSelection();
+
+        if ($isRangeSelection(selection)) {
+
+            const selectedNodes = selection.getNodes();
+
+            const paragraphNodes = selectedNodes
+                .filter((node) => $isParagraphNode(node));
+
+            if (!paragraphNodes.length) {
+
+                const textNodes = selectedNodes.filter((node) => $isTextNode(node));
+
+                textNodes.forEach((node) => {
+                    const p_node = node.getParent();
+                    if (p_node instanceof ParagraphNode) paragraphNodes.push(p_node);
+                })
+
+            }
+
+            paragraphNodes.forEach((node) => {
+
+                const p_node = node.getParent();
+
+                if (p_node instanceof MyCheckBoxNode) {
+
+                    p_node.remove();
+                    const n_node = ParagraphNode.clone(node);
+                    $insertNodes([n_node])
+
+                } else {
+
+                    const {node: c_node} = $createMyCheckboxNode();
+                    node.remove();
+                    c_node.append(node);
+                    $insertNodes([c_node])
+
+                }
+
+            } )
+
+        }
+
+    })
+
+
+    return <>
+
+
+        <TB.btn onPress={onAddRemoveChecklist}>
+
+            <MdOutlineChecklist/>
+
+        </TB.btn>
+
+
+    </>
+
+}
+
+export default AddChecklist;

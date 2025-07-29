@@ -11,6 +11,7 @@ import {applyStylesToParagraph} from "@/utils/editor";
 import LineSpacing from "@/features/Toolbar/sections/lineSpacing";
 import ParagraphSpacing from "@/features/Toolbar/sections/paragraphSpacing";
 import FontSize from "@/features/Toolbar/sections/fontSize";
+import AddChecklist from "@/features/Toolbar/sections/addChecklist";
 
 
 const Toolbar = () => {
@@ -132,7 +133,7 @@ const Toolbar = () => {
 
                 <TB.section>
 
-                    <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
+                    <AddChecklist />
 
                     <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
 
