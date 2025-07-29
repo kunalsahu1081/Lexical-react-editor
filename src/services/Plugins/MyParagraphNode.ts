@@ -4,30 +4,47 @@ import {$applyNodeReplacement, EditorConfig, LexicalNode, NodeKey, ParagraphNode
 export class MyParagraphNode extends ParagraphNode {
 
     __custom_inline_style: string;
+    __is_checklist: boolean;
 
     static getType(): string {
         return 'my-xx-paragraph-node';
     }
 
     static clone(node: MyParagraphNode): MyParagraphNode {
-        return new MyParagraphNode(node.__custom_inline_style, node.__key);
+        return new MyParagraphNode(node.__custom_inline_style, node.__is_checklist, node.__key);
     }
 
-    constructor(custom_inline_style: string, key?: NodeKey) {
+    constructor(custom_inline_style: string, is_checklist: boolean, key?: NodeKey) {
 
         super(key);
         this.__custom_inline_style = custom_inline_style;
+        this.__is_checklist = is_checklist
 
     }
 
     createDOM(): HTMLElement {
         // Define the DOM element here
-        const dom = document.createElement('p');
 
-        dom.id = this.__key;
-        dom.style.cssText = this.__custom_inline_style;
+        const externalDiv =  document.createElement('div');
 
-        return dom;
+        if (this.__is_checklist) {
+
+            const inputElement =  document.createElement('input');
+            inputElement.type = 'checkbox';
+            inputElement.checked = true;
+            inputElement.style = "margin-right: 8px; height: 100%; position: relative; top: 2px"
+
+            externalDiv.append(inputElement);
+
+        }
+
+        externalDiv.style.cssText = "display: flex; flex-direction: row;" + this.__custom_inline_style;
+        // dom.append(document.createElement('p'))
+
+        externalDiv.id = this.__key;
+        // externalDiv.style.cssText = this.__custom_inline_style;
+
+        return externalDiv;
     }
 
     setParagrphStyle(custom_inline_style) {
@@ -39,14 +56,27 @@ export class MyParagraphNode extends ParagraphNode {
 
     }
 
-    updateDOM(_prevNode: this, _dom: HTMLElement, _config: EditorConfig): boolean {
+    makeParagraphChecklist() {
 
-        console.log(_prevNode, this, 'updating node');
+        const self = this.getWritable();
+        self.__is_checklist = !self.__is_checklist;
+
+        return self;
+
+    }
+
+    updateDOM(_prevNode: this, _dom: HTMLElement, _config: EditorConfig): boolean {
 
         if (_prevNode.__custom_inline_style !== this.__custom_inline_style) {
             _dom.style.cssText = this.__custom_inline_style; // ✅ update when changed
             return true
         }
+
+        if (_prevNode.__is_checklist !== this.__is_checklist) {
+
+            return true
+        }
+
         return false;
     }
 
@@ -56,9 +86,9 @@ export class MyParagraphNode extends ParagraphNode {
 
 }
 
-export function $createMyParagraphNode(custom_inline_style: string = ""): { node: MyParagraphNode, c_key: NodeKey | undefined } {
+export function $createMyParagraphNode(custom_inline_style: string = "", is_checklist: boolean = false): { node: MyParagraphNode, c_key: NodeKey | undefined } {
 
-    const newNode = new MyParagraphNode(custom_inline_style);
+    const newNode = new MyParagraphNode(custom_inline_style, is_checklist);
 
     return {node: $applyNodeReplacement(newNode), c_key: newNode.__key}
 
