@@ -46,8 +46,6 @@ const CustomEnterPress = () => {
 
                         const anchorPoint = selection.focus;
 
-                        console.log(selection);
-
                         return true;
 
                         const {node: c_node} = $createMyCheckboxNode();

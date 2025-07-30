@@ -37,16 +37,16 @@ const AddChecklist = () => {
 
                 if (p_node instanceof MyCheckBoxNode) {
 
+                    node.remove();
+                    p_node.insertAfter(node);
                     p_node.remove();
-                    const n_node = ParagraphNode.clone(node);
-                    $insertNodes([n_node])
 
                 } else {
 
                     const {node: c_node} = $createMyCheckboxNode();
+                    node.insertAfter(c_node);
                     node.remove();
                     c_node.append(node);
-                    $insertNodes([c_node])
 
                 }
 
