@@ -31,7 +31,7 @@ export class MyCheckBoxNode extends ElementNode {
         const inputElement = document.createElement('input');
         inputElement.type = 'checkbox';
         inputElement.checked = this.__is_checked;
-        inputElement.style = `margin-right: 8px; height: 100%; position: relative;` + this.__custom_inline_style;
+        inputElement.style = `margin-right: 8px; height: 100%; position: relative; margin-top: 0; top: 0.5em;` + this.__custom_inline_style;
         externalDiv.append(inputElement);
 
         externalDiv.style.cssText = "display: flex; flex-direction: row;";
@@ -71,7 +71,7 @@ export class MyCheckBoxNode extends ElementNode {
             const inputElement = document.createElement('input');
             inputElement.type = 'checkbox';
             inputElement.checked = this.__is_checked;
-            inputElement.style = `margin-right: 8px; height: 100%; position: relative;` + this.__custom_inline_style
+            inputElement.style = `margin-right: 8px; height: 100%; position: relative; margin-top: 0; top: 0.5em;` + this.__custom_inline_style
             _dom.append(inputElement);
 
             return true

@@ -40,6 +40,7 @@ const AddChecklist = () => {
                     node.remove();
                     p_node.insertAfter(node);
                     p_node.remove();
+                    node.select();
 
                 } else {
 
@@ -47,6 +48,7 @@ const AddChecklist = () => {
                     node.insertAfter(c_node);
                     node.remove();
                     c_node.append(node);
+                    node.select();
 
                 }
 
