@@ -1,126 +1,76 @@
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import React, {useEffect} from "react";
-import {$createTextNode, $getSelection, COMMAND_PRIORITY_HIGH, KEY_ENTER_COMMAND, ParagraphNode, RangeSelection, TextNode} from "lexical";
-import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
-import {$createMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
+import {$getSelection, COMMAND_PRIORITY_HIGH, INSERT_PARAGRAPH_COMMAND, KEY_ENTER_COMMAND, RangeSelection} from "lexical";
+import {checkIfCurrentSelectionChecklist, enterCheckboxOnEnterPress} from "@/utils/hlpEnter";
 
 
-const CustomEnterPress = () => {
+const EnterPressPlugin = () => {
 
     const [editor] = useLexicalComposerContext();
 
     useEffect(() => {
-        (editor.registerCommand(
+        const deregister = editor.registerCommand(INSERT_PARAGRAPH_COMMAND, (pd) => {
+
+            console.log('triggering ', pd)
+            // if allow insertion in payload allow paragraph creation
+            if (pd?.allow_insertion) return false;
+
+            // prevent default paragraph creation
+            return true;
+
+        }, COMMAND_PRIORITY_HIGH)
+
+        return () => {
+            deregister();
+        }
+
+    }, [editor]);
+
+    useEffect(() => {
+        const deregister = editor.registerCommand(
             KEY_ENTER_COMMAND,
             (event) => {
 
-                let is_checklist = false;
-                let checklist_node = null
-
                 const selection: RangeSelection = $getSelection() as RangeSelection;
+
                 if (selection?.isCollapsed()) {
 
                     const currentSelectionNodes = selection.getNodes();
 
-                    currentSelectionNodes.forEach((node) => {
-
-                        const parent = node.getParent();
-
-                        if (parent instanceof ParagraphNode) {
-
-                            const p_parent = parent.getParent();
-
-                            if (p_parent instanceof MyCheckBoxNode) {
-                                is_checklist = true;
-                                checklist_node = p_parent
-                            }
-
-                        } else if (parent instanceof MyCheckBoxNode) {
-                            is_checklist = true;
-                            checklist_node = parent
-                        }
-
-                    })
+                    // check if current selection is checklist node and get node
+                    const {is_checklist, checklist_node} = checkIfCurrentSelectionChecklist(currentSelectionNodes);
 
                     if (is_checklist) {
 
-                        const anchorPoint = selection.anchor;
-                        const textNodes = [];
-                        const selectionChildren = checklist_node.getChildren();
-                        let currentNode = null;
-
-                        selectionChildren.forEach((node) => {
-
-                            if (node instanceof ParagraphNode) {
-
-                                node.getChildren().forEach((tnode) => {
-                                    if (tnode instanceof TextNode) {
-                                        textNodes.push(tnode);
-                                        if (tnode.getKey() === anchorPoint.getNode().getKey()) currentNode = textNodes.length - 1;
-                                    }
-                                })
-
-                            } else if (node instanceof TextNode) {
-
-                                textNodes.push(node);
-                                if (node.getKey() === anchorPoint.getNode().getKey()) currentNode = textNodes.length - 1;
-
-                            }
-
-                        })
-
-                        if (currentNode !== null) {
-
-                            const {node: newCheckboxItem} = $createMyCheckboxNode("top: 0.5em;");
-                            const {node: newParagraphNode} = $createMyParagraphNode();
-
-                            const anchorNode = textNodes[currentNode];
-                            const format = anchorNode.getFormat();
-                            const style = anchorNode.getStyle();
-                            const textContent = anchorNode.getTextContent();
-                            const splitOffset = anchorPoint.offset;
-
-
-                            const leftNode = $createTextNode(textContent.slice(0, splitOffset)).setFormat(format).setStyle(style);
-                            const rightNode = $createTextNode(textContent.slice(splitOffset, textContent.length)).setFormat(format).setStyle(style);
-                            newParagraphNode.append(rightNode);
-
-                            textNodes.forEach((node, index) => {
-
-                                if (index > currentNode) {
-                                    node.remove();
-                                    newParagraphNode.append(node);
-                                }
-
-                            })
-
-                            anchorNode.replace(leftNode);
-                            newCheckboxItem.append(newParagraphNode);
-                            checklist_node.insertAfter(newCheckboxItem);
-                            rightNode.select();
-                            return true;
-
-                        }
-
-                        return false;
+                        // handles enter press on checklist node
+                        // create new checklist node in new line
+                        return enterCheckboxOnEnterPress(selection, checklist_node);
 
                     } else {
-                        return false;
+
+                        // handles enterPress on Empty node or paragraph
+                        // create new paragraph node in new line
+                        editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, {allow_insertion: true})
+                        return true;
+
                     }
 
                 }
-                return false; // prevent default paragraph creation
+
+                return false;
             },
             COMMAND_PRIORITY_HIGH
-        ));
+        );
+
+        return () => {
+            deregister();
+        }
+
     }, [editor]);
 
 
-    return <>
-
-
-    </>
+    return <></>
 
 }
 
-export default React.memo(CustomEnterPress)
+export default React.memo(EnterPressPlugin)

@@ -8,10 +8,9 @@ import './editor.css'
 import Toolbar from "@/features/Toolbar";
 import {ParagraphNode, TextNode} from "lexical";
 import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
-import CustomEnterPress from "@/services/Plugins/customEnterPress";
+import EnterPressPlugin from "@/services/Plugins/customEnterPress";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
-import CustomSpacePress from "@/services/Plugins/customSpacePress";
-import CustomKeyDown from "@/services/Plugins/customKeyDown";
+import BackPressPlugin from "@/services/Plugins/customDelPress";
 
 
 const Editor = () => {
@@ -44,8 +43,10 @@ const Editor = () => {
             />
             <HistoryPlugin/>
 
-            {/*<CustomEnterPress />*/}
-            <CustomKeyDown />
+            <EnterPressPlugin />
+
+            <BackPressPlugin />
+            {/*<CustomKeyDown />*/}
 
         </LexicalComposer>
 
