@@ -11,7 +11,6 @@ const EnterPressPlugin = () => {
     useEffect(() => {
         const deregister = editor.registerCommand(INSERT_PARAGRAPH_COMMAND, (pd) => {
 
-            console.log('triggering ', pd)
             // if allow insertion in payload allow paragraph creation
             if (pd?.allow_insertion) return false;
 

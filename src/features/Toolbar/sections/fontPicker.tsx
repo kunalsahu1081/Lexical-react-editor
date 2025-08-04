@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import TB from "@/components/toolbar";
+import {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
@@ -14,8 +14,11 @@ const font_list = [
     "Bitcount Prop Double"
 ]
 
+interface IFontPicker {
+    sFont?: string;
+}
 
-const FontPicker = ({sfont}) => {
+const FontPicker = ({sFont = "Winky Rough"} : IFontPicker) => {
 
     const [editor] = useLexicalComposerContext();
 
@@ -58,29 +61,37 @@ const FontPicker = ({sfont}) => {
 
     return <div id={'fontDropdown'}>
 
-        <TB.dropdown>
+        <ToolbarDropdown>
 
-            <TB.btn style={{width: '150px'}} onPress={() => {
-                set_show_dropdown((prev) => !prev)
-            }}>
-                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}>{sfont || "Roboto"}</div>
-            </TB.btn>
+            <ToolbarButton
+                style={{width: '150px'}}
+                onPress={() => {
+                    set_show_dropdown((prev) => !prev)
+                }}
+            >
+                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}> {sFont || "Roboto"} </div>
+            </ToolbarButton>
 
-            {show_dropdown ? <TB.dropdownL>
+            {show_dropdown ? <DropdownList>
+
                 {font_list.map((font) => {
-                    return <>
-                        <TB.dItem
-                            selected={font === (sfont || "Roboto")}
-                            onClick={() => {
-                                onFontChange(font)
-                            }}
-                        >{font}</TB.dItem>
-                    </>
+
+                    return <DropdownItem
+                        key={font}
+                        selected={font === (sFont)}
+                        onClick={() => {
+                            onFontChange(font)
+                        }}
+                    >
+                        {font}
+                    </DropdownItem>
+
                 })}
-            </TB.dropdownL> : null}
+
+            </DropdownList> : null}
 
 
-        </TB.dropdown>
+        </ToolbarDropdown>
 
     </div>
 

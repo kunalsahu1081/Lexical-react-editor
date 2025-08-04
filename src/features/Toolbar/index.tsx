@@ -1,4 +1,4 @@
-import TB from "@/components/toolbar";
+import TB, {ToolbarButton} from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {FORMAT_TEXT_COMMAND} from 'lexical';
 import {useCallback, useEffect, useState} from "react";
@@ -52,26 +52,26 @@ const Toolbar = () => {
 
 
         <TB>
-
             <TB.row>
+
                 <TB.section>
 
-                    <TB.btn isActive={c_toolbar_state.is_bold} onPress={() => formatText('bold')}>
+                    <ToolbarButton isActive={c_toolbar_state.is_bold} onPress={() => formatText('bold')}>
                         B
-                    </TB.btn>
+                    </ToolbarButton>
 
 
-                    <TB.btn isActive={c_toolbar_state.is_italic} onPress={() => formatText('italic')}>
+                    <ToolbarButton isActive={c_toolbar_state.is_italic} onPress={() => formatText('italic')}>
                         I
-                    </TB.btn>
+                    </ToolbarButton>
 
-                    <TB.btn isActive={c_toolbar_state.is_underline} onPress={() => formatText('underline')}>
+                    <ToolbarButton isActive={c_toolbar_state.is_underline} onPress={() => formatText('underline')}>
                         <FaUnderline/>
-                    </TB.btn>
+                    </ToolbarButton>
 
-                    <TB.btn isActive={c_toolbar_state.is_strike} onPress={() => formatText('strikethrough')}>
+                    <ToolbarButton isActive={c_toolbar_state.is_strike} onPress={() => formatText('strikethrough')}>
                         <FaStrikethrough/>
-                    </TB.btn>
+                    </ToolbarButton>
 
                 </TB.section>
 
@@ -79,7 +79,7 @@ const Toolbar = () => {
 
                 <TB.section>
 
-                    <FontPicker sfont={c_toolbar_state.font} />
+                    <FontPicker sFont={c_toolbar_state.font} />
 
                 </TB.section>
 
@@ -87,21 +87,21 @@ const Toolbar = () => {
 
                 <TB.section>
 
-                    <TB.btn isActive={c_toolbar_state.align === 'center'} onPress={() => applyParagraphStyles("text-align: center;")}>
+                    <ToolbarButton isActive={c_toolbar_state.align === 'center'} onPress={() => applyParagraphStyles("text-align: center;")}>
                         <FaAlignCenter/>
-                    </TB.btn>
+                    </ToolbarButton>
 
-                    <TB.btn isActive={c_toolbar_state.align === 'left'} onPress={() => applyParagraphStyles("text-align: left;")}>
+                    <ToolbarButton isActive={c_toolbar_state.align === 'left'} onPress={() => applyParagraphStyles("text-align: left;")}>
                         <FaAlignLeft/>
-                    </TB.btn>
+                    </ToolbarButton>
 
-                    <TB.btn isActive={c_toolbar_state.align === 'right'} onPress={() => applyParagraphStyles("text-align: right;")}>
+                    <ToolbarButton isActive={c_toolbar_state.align === 'right'} onPress={() => applyParagraphStyles("text-align: right;")}>
                         <FaAlignRight/>
-                    </TB.btn>
+                    </ToolbarButton>
 
-                    <TB.btn isActive={c_toolbar_state.align === 'justify'} onPress={() => applyParagraphStyles("text-align: justify;")}>
+                    <ToolbarButton isActive={c_toolbar_state.align === 'justify'} onPress={() => applyParagraphStyles("text-align: justify;")}>
                         <FaAlignJustify/>
-                    </TB.btn>
+                    </ToolbarButton>
 
                 </TB.section>
 
@@ -134,12 +134,6 @@ const Toolbar = () => {
                 <TB.section>
 
                     <AddChecklist />
-
-                    <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
-
-                    <LineSpacing Sspacing={c_toolbar_state.line_height} />
-
-                    <ParagraphSpacing Sspacing={c_toolbar_state.p_spacing} />
 
                 </TB.section>
 

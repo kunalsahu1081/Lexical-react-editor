@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import TB from "@/components/toolbar";
+import TB, {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {MdFormatLineSpacing} from "react-icons/md";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {applyStylesToParagraph} from "@/utils/editor";
@@ -46,9 +46,9 @@ const ParagraphSpacing = ({Sspacing = 1.5}) => {
 
     return <div id={'Pspacing'}>
 
-        <TB.dropdown>
+        <ToolbarDropdown>
 
-            <TB.btn
+            <ToolbarButton
                 onPress={() => {
                     set_show_spacing_options(true)
                 }}
@@ -63,23 +63,23 @@ const ParagraphSpacing = ({Sspacing = 1.5}) => {
                     <path d="M2 8h13v2H2zM2 4h13v2H2zM2 12h13v2H2zM22 22v-8l-5 4zM2 16h13v4H2z"></path>
                 </svg>
 
-            </TB.btn>
+            </ToolbarButton>
 
 
             {show_spacing_options ?
-                <TB.dropdownL>
+                <DropdownList>
 
                     {
                         spacingList.map((spacing) => {
-                            return <TB.dItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</TB.dItem>
+                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</DropdownItem>
                         })
                     }
 
-                </TB.dropdownL>
+                </DropdownList>
 
                 : null}
 
-        </TB.dropdown>
+        </ToolbarDropdown>
 
     </div>
 

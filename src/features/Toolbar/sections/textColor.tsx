@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import TB from "@/components/toolbar";
+import TB, {ToolbarButton} from "@/components/toolbar";
 import {MdFormatColorText} from "react-icons/md";
 import {HexColorPicker} from "react-colorful";
 
@@ -42,10 +42,10 @@ const TextColor = ({color, changeColorState}) => {
 
     return <>
 
-        <TB.btn onPress={() => set_show_color_picker(true)}>
+        <ToolbarButton onPress={() => set_show_color_picker(true)}>
             <MdFormatColorText style={{height: '20px'}} color={color || ''}/>
 
-        </TB.btn>
+        </ToolbarButton>
 
         <div
             onMouseDown={(ev) => {
@@ -68,4 +68,4 @@ const TextColor = ({color, changeColorState}) => {
 
 }
 
-export default React.memo(TextColor)
+export default React.memo(TextColor);

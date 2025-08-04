@@ -4,49 +4,79 @@ import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary";
 import {ContentEditable} from "@lexical/react/LexicalContentEditable";
 import {RichTextPlugin} from "@lexical/react/LexicalRichTextPlugin";
 import * as React from "react";
-import './editor.css'
-import Toolbar from "@/features/Toolbar";
+import '../../styles/editor.css'
 import {ParagraphNode, TextNode} from "lexical";
 import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
 import EnterPressPlugin from "@/services/Plugins/customEnterPress";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import BackPressPlugin from "@/services/Plugins/customDelPress";
+import {ListPlugin} from "@lexical/react/LexicalListPlugin";
+import {ListItemNode, ListNode} from "@lexical/list";
+import {createContext} from "react";
 
 
-const Editor = () => {
+interface IDefaultEditorTheme {
+    editorClassName: string;
+    placeholderClassName: string;
+    toolbarClassName?: string;
+    toolbarButton?: string;
+    toolbarButtonActive?: string;
+}
+
+export const defaultEditorTheme: IDefaultEditorTheme = {
+    editorClassName: 'myEditor',
+    placeholderClassName: 'editorPlaceholder',
+    toolbarClassName: 'editorToolbar',
+    toolbarButton: 'toolbarButton',
+    toolbarButtonActive: 'toolbarButtonActive',
+}
+
+interface IEditor {
+    children: React.ReactNode,
+    theme?: IDefaultEditorTheme,
+}
+
+export const EditorTheme = createContext(defaultEditorTheme)
+
+const Editor = ({children, theme = defaultEditorTheme} : IEditor) => {
 
 
     return <>
 
+        <LexicalComposer
+            initialConfig={{
+                namespace: 'VanillaLexicalEditor',
+                onError: (error) => console.error('Lexical Error:', error),
+                nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode, ListNode, ListItemNode],
+                theme: {
+                    text: {
+                        bold: "bold",
+                        underline: "underline",
+                        italic: "italics",
+                        strikethrough: "line-through",
+                        underlineStrikethrough: "line-through-strike",
+                    },
+                }
+            }}
+        >
 
-        <LexicalComposer initialConfig={{
-            namespace: 'VanillaLexicalEditor',
-            onError: (error) => console.error('Lexical Error:', error),
-            nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode],
-            theme: {
-                text: {
-                    bold: "bold",
-                    underline: "underline",
-                    italic: "italics",
-                    strikethrough: "line-through",
-                    underlineStrikethrough: "line-through-strike",
-                },
-            }
-        }}>
+            <EditorTheme value={theme}>
 
-            <Toolbar/>
+                {children}
 
-            <RichTextPlugin
-                contentEditable={<ContentEditable className="editor"/>}
-                placeholder={<div className={'editorPlaceholder'}>Enter text here...</div>}
-                ErrorBoundary={LexicalErrorBoundary}
-            />
+                <RichTextPlugin
+                    contentEditable={<ContentEditable className={theme.editorClassName}/>}
+                    placeholder={<div className={theme.placeholderClassName}>Enter text here...</div>}
+                    ErrorBoundary={LexicalErrorBoundary}
+                />
+
+            </EditorTheme>
+
             <HistoryPlugin/>
 
-            <EnterPressPlugin />
+            <EnterPressPlugin/>
 
-            <BackPressPlugin />
-            {/*<CustomKeyDown />*/}
+            <BackPressPlugin/>
 
         </LexicalComposer>
 

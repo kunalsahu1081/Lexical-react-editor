@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import TB from "@/components/toolbar";
+import {ToolbarButton} from "@/components/toolbar";
 import {HexColorPicker} from "react-colorful";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
@@ -42,10 +42,11 @@ const HighlightText = ({color, changeColorState}) => {
 
     return <>
 
-         <TB.btn onPress={() => set_show_color_picker(true)}>
-            <FaHighlighter  style={{height: '20px'}} color={color || ''}/>
+        <ToolbarButton onPress={() => set_show_color_picker(true)}>
 
-        </TB.btn>
+            <FaHighlighter style={{height: '20px'}} color={color || ''}/>
+
+        </ToolbarButton>
 
         <div
             onMouseDown={(ev) => {

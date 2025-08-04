@@ -1,4 +1,4 @@
-import TB from "@/components/toolbar";
+import TB, {ToolbarButton} from "@/components/toolbar";
 import {MdOutlineChecklist} from "react-icons/md";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getRoot, $getSelection, $insertNodes, $isParagraphNode, $isRangeSelection, $isTextNode, ParagraphNode} from "lexical";
@@ -62,11 +62,11 @@ const AddChecklist = () => {
     return <>
 
 
-        <TB.btn onPress={onAddRemoveChecklist}>
+        <ToolbarButton onPress={onAddRemoveChecklist}>
 
             <MdOutlineChecklist/>
 
-        </TB.btn>
+        </ToolbarButton>
 
 
     </>

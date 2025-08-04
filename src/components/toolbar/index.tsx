@@ -1,12 +1,15 @@
-import './index.css'
+import '../../styles/toolbar.css'
 import {GiCheckMark} from "react-icons/gi";
+import {useContext} from "react";
+import {defaultEditorTheme, EditorTheme} from "@/features/editor/editor";
 
 const TB = ({children}) => {
 
+    const theme = useContext(EditorTheme);
 
     return <>
 
-        <div className={'toolbar'}>
+        <div className={theme.toolbarClassName || 'editorToolbar'}>
 
             {children}
 
@@ -53,12 +56,17 @@ TB.row = ({children, }) => {
 
 }
 
-TB.btn = ({children, onPress, isActive, style}) => {
+export const ToolbarButton = ({children, onPress, isActive, style}) => {
 
+    const theme = useContext(EditorTheme);
 
     return <>
 
-        <button  style={style} onClick={onPress} className={`buttonTB ${isActive ? 'btnActive' : ''}`}>
+        <button
+            style={style}
+            onClick={onPress}
+            className={`${theme.toolbarButton || defaultEditorTheme.toolbarButton} ${isActive ? theme.toolbarButtonActive || defaultEditorTheme.toolbarButtonActive : ''}`}
+        >
 
             {children}
 
@@ -68,7 +76,7 @@ TB.btn = ({children, onPress, isActive, style}) => {
 
 }
 
-TB.dropdown = ({children, onChange, value,}) => {
+export const ToolbarDropdown = ({children}) => {
 
     return <>
 
@@ -80,7 +88,7 @@ TB.dropdown = ({children, onChange, value,}) => {
 
 }
 
-TB.dropdownL = ({children, onChange, value,}) => {
+export const DropdownList = ({children}) => {
 
     return <>
 
@@ -92,7 +100,7 @@ TB.dropdownL = ({children, onChange, value,}) => {
 
 }
 
-TB.dItem = ({children, selected, onClick}) => {
+export const DropdownItem = ({children, selected, onClick}) => {
 
     return <>
 
@@ -103,6 +111,7 @@ TB.dItem = ({children, selected, onClick}) => {
             </div>
 
             {children}
+
         </div>
 
     </>

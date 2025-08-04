@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import TB from "@/components/toolbar";
+import TB, {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {MdFormatLineSpacing} from "react-icons/md";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {applyStylesToParagraph} from "@/utils/editor";
 
 
 const spacingList = [
-        1, 1.5, 2, 3
-    ]
+    1, 1.5, 2, 3
+]
 
 
 const LineSpacing = ({Sspacing = 1.5}) => {
@@ -23,12 +23,9 @@ const LineSpacing = ({Sspacing = 1.5}) => {
 
     }
 
-
     const closeColorPicker = (ev) => {
 
         const element = document.getElementById('spacing');
-
-        console.log(element.contains(ev.target));
 
         if (element.contains(ev.target)) {
             return;
@@ -49,9 +46,9 @@ const LineSpacing = ({Sspacing = 1.5}) => {
 
     return <div id={'spacing'}>
 
-        <TB.dropdown>
+        <ToolbarDropdown>
 
-            <TB.btn
+            <ToolbarButton
                 onPress={() => {
                     set_show_spacing_options(true)
                 }}
@@ -59,23 +56,23 @@ const LineSpacing = ({Sspacing = 1.5}) => {
 
                 <MdFormatLineSpacing/>
 
-            </TB.btn>
+            </ToolbarButton>
 
 
             {show_spacing_options ?
-                <TB.dropdownL>
+                <DropdownList>
 
                     {
                         spacingList.map((spacing) => {
-                            return <TB.dItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</TB.dItem>
+                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</DropdownItem>
                         })
                     }
 
-                </TB.dropdownL>
+                </DropdownList>
 
                 : null}
 
-        </TB.dropdown>
+        </ToolbarDropdown>
 
     </div>
 
