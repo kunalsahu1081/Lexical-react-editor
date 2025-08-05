@@ -1,9 +1,17 @@
 import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import {$createMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
-import {$createTextNode, $setSelection, ParagraphNode, RangeSelection, TextNode} from "lexical";
+import {$createTextNode, $setSelection, LexicalNode, ParagraphNode, RangeSelection, TextNode} from "lexical";
+import {ListItemNode} from "@lexical/list";
+import {$createMyListNodeItem, MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
+const customNodes: MyCustomNodes[] = [
+    MyCheckBoxNode,
+    MyListNodeItem,
+]
 
-export const enterCheckboxOnEnterPress = (selection: RangeSelection, checklist_node) => {
+type MyCustomNodes = MyCheckBoxNode | MyListNodeItem;
+
+export const enterCustomNodeOnEnterPress = (selection: RangeSelection, selected_custom_node: MyCustomNodes): boolean => {
     // cursor position
     const anchorPoint = selection.anchor;
 
@@ -11,7 +19,7 @@ export const enterCheckboxOnEnterPress = (selection: RangeSelection, checklist_n
     const textNodes = [];
 
     // list of all nodes in selection
-    const selectionChildren = checklist_node.getChildren();
+    const selectionChildren = selected_custom_node.getChildren();
 
     // node index from textNodes to which anchor point points
     let currentNode = null;
@@ -40,7 +48,18 @@ export const enterCheckboxOnEnterPress = (selection: RangeSelection, checklist_n
 
     if (currentNode !== null) {
 
-        const {node: newCheckboxItem} = $createMyCheckboxNode("top: 0.5em;");
+        let newCustomNode: MyCustomNodes | null = null;
+
+        if (selected_custom_node instanceof MyCheckBoxNode) {
+            const {node} = $createMyCheckboxNode("top: 0.5em;");
+            newCustomNode = node;
+        } else if (selected_custom_node instanceof MyListNodeItem) {
+            const {node} = $createMyListNodeItem();
+            newCustomNode = node;
+        } else {
+            return;
+        }
+
         const {node: newParagraphNode} = $createMyParagraphNode();
         const anchorNode = textNodes[currentNode];
         const format = anchorNode.getFormat();
@@ -65,8 +84,8 @@ export const enterCheckboxOnEnterPress = (selection: RangeSelection, checklist_n
 
         // append nodes
         anchorNode.replace(leftNode);
-        newCheckboxItem.append(newParagraphNode);
-        checklist_node.insertAfter(newCheckboxItem);
+        newCustomNode.append(newParagraphNode);
+        selected_custom_node.insertAfter(newCustomNode);
 
         // apply selection
         $setSelection(null);
@@ -79,7 +98,7 @@ export const enterCheckboxOnEnterPress = (selection: RangeSelection, checklist_n
     return false;
 }
 
-export const checkIfCurrentSelectionChecklist = (currentSelectionNodes) => {
+export const checkIfCurrentSelectionCustomNode = (currentSelectionNodes: LexicalNode[]): { is_custom_node: boolean, node: MyCustomNodes } => {
 
     for (const node of currentSelectionNodes) {
 
@@ -89,15 +108,21 @@ export const checkIfCurrentSelectionChecklist = (currentSelectionNodes) => {
 
             const p_parent = parent.getParent();
 
-            if (p_parent instanceof MyCheckBoxNode) {
-                return {is_checklist: true, checklist_node: p_parent};
+            for (const c_node of customNodes) {
+                if (p_parent instanceof c_node) {
+                    return {is_custom_node: true, node: p_parent as MyCustomNodes};
+                }
             }
 
-        } else if (parent instanceof MyCheckBoxNode) {
-             return {is_checklist: true, checklist_node: parent};
+        } else {
+            for (const c_node of customNodes) {
+                if (parent instanceof c_node) {
+                    return {is_custom_node: true, node: parent as MyCustomNodes};
+                }
+            }
         }
 
     }
 
-    return {is_checklist: false, checklist_node: null};
+    return {is_custom_node: false, node: null};
 }

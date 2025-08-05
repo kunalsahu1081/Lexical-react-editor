@@ -12,6 +12,7 @@ import LineSpacing from "@/features/Toolbar/sections/lineSpacing";
 import ParagraphSpacing from "@/features/Toolbar/sections/paragraphSpacing";
 import FontSize from "@/features/Toolbar/sections/fontSize";
 import AddChecklist from "@/features/Toolbar/sections/addChecklist";
+import AddUnorderedList from "@/features/Toolbar/sections/addUnorderedList";
 
 
 const Toolbar = () => {
@@ -134,6 +135,8 @@ const Toolbar = () => {
                 <TB.section>
 
                     <AddChecklist />
+
+                    <AddUnorderedList />
 
                 </TB.section>
 

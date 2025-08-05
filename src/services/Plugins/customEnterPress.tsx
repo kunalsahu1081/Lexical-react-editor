@@ -1,7 +1,7 @@
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import React, {useEffect} from "react";
 import {$getSelection, COMMAND_PRIORITY_HIGH, INSERT_PARAGRAPH_COMMAND, KEY_ENTER_COMMAND, RangeSelection} from "lexical";
-import {checkIfCurrentSelectionChecklist, enterCheckboxOnEnterPress} from "@/utils/hlpEnter";
+import {checkIfCurrentSelectionChecklist, checkIfCurrentSelectionCustomNode, enterCheckboxOnEnterPress, enterCustomNodeOnEnterPress} from "@/utils/hlpEnter";
 
 
 const EnterPressPlugin = () => {
@@ -37,13 +37,13 @@ const EnterPressPlugin = () => {
                     const currentSelectionNodes = selection.getNodes();
 
                     // check if current selection is checklist node and get node
-                    const {is_checklist, checklist_node} = checkIfCurrentSelectionChecklist(currentSelectionNodes);
+                    const {is_custom_node, node} = checkIfCurrentSelectionCustomNode(currentSelectionNodes);
 
-                    if (is_checklist) {
+                    if (is_custom_node) {
 
-                        // handles enter press on checklist node
-                        // create new checklist node in new line
-                        return enterCheckboxOnEnterPress(selection, checklist_node);
+                        // handles enter press on custom nodes
+                        // create new custom node in new line
+                        return enterCustomNodeOnEnterPress(selection, node);
 
                     } else {
 

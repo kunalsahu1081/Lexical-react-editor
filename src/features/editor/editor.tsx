@@ -13,6 +13,8 @@ import BackPressPlugin from "@/services/Plugins/customDelPress";
 import {ListPlugin} from "@lexical/react/LexicalListPlugin";
 import {ListItemNode, ListNode} from "@lexical/list";
 import {createContext} from "react";
+import {MyListNode} from "@/services/Plugins/MyListNode";
+import {MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
 
 interface IDefaultEditorTheme {
@@ -47,7 +49,7 @@ const Editor = ({children, theme = defaultEditorTheme} : IEditor) => {
             initialConfig={{
                 namespace: 'VanillaLexicalEditor',
                 onError: (error) => console.error('Lexical Error:', error),
-                nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode, ListNode, ListItemNode],
+                nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode, ListNode, ListItemNode, MyListNode, MyListNodeItem],
                 theme: {
                     text: {
                         bold: "bold",
