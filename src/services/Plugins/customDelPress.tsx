@@ -2,6 +2,8 @@ import {useEffect} from "react";
 import {$createParagraphNode, $createTextNode, $getSelection, $setSelection, COMMAND_PRIORITY_HIGH, DELETE_CHARACTER_COMMAND, KEY_BACKSPACE_COMMAND, RangeSelection, TextNode} from "lexical";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
+import {MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
+import {insertSimilarNodeAfter} from "@/utils/hlpDel";
 
 
 const BackPressPlugin = () => {
@@ -38,15 +40,17 @@ const BackPressPlugin = () => {
             } else {
 
                 // if anchorNode has checkbox node
-                if (anchorNode instanceof MyCheckBoxNode || anchorNode.getParent() instanceof MyCheckBoxNode) {
+                if (anchorNode.getParent() instanceof MyCheckBoxNode || anchorNode.getParent() instanceof MyListNodeItem) {
 
-                    const node = $createParagraphNode();
-                    const textNode = $createTextNode();
-                    anchorNode.getParent().insertAfter(node);
-                    anchorNode.getParent().remove();
-                    $setSelection(null);
-                    node.append(textNode);
-                    textNode.select();
+                    // const node = $createParagraphNode();
+                    // const textNode = $createTextNode();
+                    // anchorNode.getParent().insertAfter(node);
+                    // anchorNode.getParent().remove();
+                    // $setSelection(null);
+                    // node.append(textNode);
+                    // textNode.select();
+
+                    insertSimilarNodeAfter(anchorNode.getParent())
 
                     ev.preventDefault();
                     ev.stopPropagation();

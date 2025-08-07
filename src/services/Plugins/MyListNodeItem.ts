@@ -11,6 +11,10 @@ export class MyListNodeItem extends ElementNode {
         return new MyListNodeItem(node.__key);
     }
 
+    returnNewSimilar(): MyListNodeItem {
+        return new MyListNodeItem();
+    }
+
     constructor(key?: NodeKey) {
         super(key);
     }

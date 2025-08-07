@@ -1,6 +1,6 @@
 import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import {$createMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
-import {$createTextNode, $setSelection, LexicalNode, ParagraphNode, RangeSelection, TextNode} from "lexical";
+import {$createTextNode, $getSelection, $setSelection, INSERT_PARAGRAPH_COMMAND, LexicalNode, ParagraphNode, RangeSelection, TextNode} from "lexical";
 import {ListItemNode} from "@lexical/list";
 import {$createMyListNodeItem, MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
@@ -10,6 +10,34 @@ const customNodes: MyCustomNodes[] = [
 ]
 
 type MyCustomNodes = MyCheckBoxNode | MyListNodeItem;
+
+export const enterSimilarNodeNext = (editor) => {
+    const selection: RangeSelection = $getSelection() as RangeSelection;
+
+    if (selection?.isCollapsed()) {
+
+        const currentSelectionNodes = selection.getNodes();
+
+        // check if current selection is checklist node and get node
+        const {is_custom_node, node} = checkIfCurrentSelectionCustomNode(currentSelectionNodes);
+
+        if (is_custom_node) {
+
+            // handles enter press on custom nodes
+            // create new custom node in new line
+            return enterCustomNodeOnEnterPress(selection, node);
+
+        } else {
+
+            // handles enterPress on Empty node or paragraph
+            // create new paragraph node in new line
+            editor.dispatchCommand(INSERT_PARAGRAPH_COMMAND, {allow_insertion: true})
+            return true;
+
+        }
+
+    }
+}
 
 export const enterCustomNodeOnEnterPress = (selection: RangeSelection, selected_custom_node: MyCustomNodes): boolean => {
     // cursor position

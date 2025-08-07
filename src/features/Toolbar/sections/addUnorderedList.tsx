@@ -1,10 +1,9 @@
 import {ToolbarButton} from "@/components/toolbar";
 import {FaThList} from "react-icons/fa";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {$createListItemNode, $createListNode} from "@lexical/list";
-import {$getRoot} from "lexical";
-import {$createMyListNode} from "@/services/Plugins/MyListNode";
-import {$createMyListNodeItem} from "@/services/Plugins/MyListNodeItem";
+import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode, ParagraphNode} from "lexical";
+import {$createMyListNode, MyListNode} from "@/services/Plugins/MyListNode";
+import {$createMyListNodeItem, MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
 
 const AddUnorderedList = () => {
@@ -12,37 +11,61 @@ const AddUnorderedList = () => {
 
     const [editor] = useLexicalComposerContext();
 
-
-    // useEffect(() => {
-    //
-    //     const deregister = editor.registerCommand(INSERT_UNORDERED_LIST_COMMAND, () => {
-    //
-    //         const listNode = $createListNode('bullet');
-    //         const ListItemNode = $createListItemNode(false);
-    //
-    //         listNode.append(ListItemNode);
-    //
-    //         $getRoot().append(listNode);
-    //
-    //         return true;
-    //     }, COMMAND_PRIORITY_HIGH);
-    //
-    //     return () => {
-    //         deregister();
-    //     }
-    //
-    // }, [editor]);
-
-
     const addList = () => {
 
         editor.update(() => {
 
-            const {node: listNode} = $createMyListNode('', true);
-            const {node: ListItemNode} = $createMyListNodeItem();
+            const selection = $getSelection();
 
-            listNode.append(ListItemNode);
-            $getRoot().append(listNode);
+            if ($isRangeSelection(selection)) {
+
+                const selectedNodes = selection.getNodes();
+
+                const paragraphNodes = selectedNodes
+                    .filter((node) => $isParagraphNode(node));
+
+                if (!paragraphNodes.length) {
+
+                    const textNodes = selectedNodes.filter((node) => $isTextNode(node));
+
+                    textNodes.forEach((node) => {
+                        const p_node = node.getParent();
+                        if (p_node instanceof ParagraphNode) paragraphNodes.push(p_node);
+                    })
+
+                }
+
+                paragraphNodes.forEach((node) => {
+
+                    const p_node = node.getParent();
+
+                    if (p_node instanceof MyListNode) {
+
+                    } else if (p_node instanceof MyListNodeItem) {
+
+                        const {node: listNode} = $createMyListNode('', true);
+
+                        p_node.insertAfter(listNode);
+                        p_node.remove();
+                        listNode.append(p_node);
+                        node.select();
+
+                    } else {
+
+                        const {node: listNode} = $createMyListNode('', true);
+                        const {node: ListItemNode} = $createMyListNodeItem();
+
+                        listNode.append(ListItemNode);
+                        node.insertAfter(listNode);
+                        node.remove();
+                        ListItemNode.append(node);
+                        node.select();
+
+                    }
+
+                })
+
+            }
 
         })
 

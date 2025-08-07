@@ -13,11 +13,15 @@ export class MyParagraphNode extends ParagraphNode {
         return new MyParagraphNode(node.__custom_inline_style, node.__key);
     }
 
-    constructor(custom_inline_style: string, key?: NodeKey) {
+    constructor(custom_inline_style?: string, key?: NodeKey) {
 
         super(key);
         this.__custom_inline_style = custom_inline_style;
 
+    }
+
+    returnNewSimilar(): MyParagraphNode {
+        return new MyParagraphNode(this.__custom_inline_style);
     }
 
     createDOM(): HTMLElement {

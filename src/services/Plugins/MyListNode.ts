@@ -18,8 +18,11 @@ export class MyListNode extends ElementNode {
         return new MyListNode(node.__inline_style, node.__is_ordered, node.__ordered_list_type, node.__key);
     }
 
+    returnNewSimilar(): MyListNode {
+        return new MyListNode(this.__inline_style, this.__is_ordered, this.__ordered_list_type);
+    }
 
-    constructor(inline_style: string, is_ordered: boolean, list_type: IOrderedList = "1", key?: NodeKey) {
+    constructor(inline_style?: string, is_ordered: boolean = true, list_type: IOrderedList = "1", key?: NodeKey) {
 
         super(key);
         this.__inline_style = inline_style;

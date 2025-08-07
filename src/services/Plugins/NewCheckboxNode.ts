@@ -15,6 +15,10 @@ export class MyCheckBoxNode extends ElementNode {
         return new MyCheckBoxNode(node.__custom_inline_style, node.__is_checked, node.__key);
     }
 
+    returnNewSimilar(): MyCheckBoxNode {
+        return new MyCheckBoxNode(this.__custom_inline_style, false);
+    }
+
     constructor(custom_inline_style: string, is_checklist: boolean, key?: NodeKey) {
 
         super(key);
