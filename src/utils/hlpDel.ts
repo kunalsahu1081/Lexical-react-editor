@@ -6,8 +6,6 @@ import {$createMyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
 export const insertSimilarNodeAfter = (deletionNode: LexicalNode) => {
 
-    console.log(deletionNode)
-
     if (deletionNode.getParent() instanceof MyListNode) {
 
         if (deletionNode?.getParent()?.getParent() instanceof MyListNode) {
@@ -23,6 +21,7 @@ export const insertSimilarNodeAfter = (deletionNode: LexicalNode) => {
         } else {
 
             if (deletionNode.getParent().getChildren().length == 1) {
+                // remove parent if parent has no children
                 insertAndDelete(deletionNode.getParent(), deletionNode.getParent(), deletionNode.getParent()?.getParent());
             } else {
                 insertAndDelete(deletionNode, deletionNode.getParent(), deletionNode.getParent()?.getParent());

@@ -42,14 +42,6 @@ const BackPressPlugin = () => {
                 // if anchorNode has checkbox node
                 if (anchorNode.getParent() instanceof MyCheckBoxNode || anchorNode.getParent() instanceof MyListNodeItem) {
 
-                    // const node = $createParagraphNode();
-                    // const textNode = $createTextNode();
-                    // anchorNode.getParent().insertAfter(node);
-                    // anchorNode.getParent().remove();
-                    // $setSelection(null);
-                    // node.append(textNode);
-                    // textNode.select();
-
                     insertSimilarNodeAfter(anchorNode.getParent())
 
                     ev.preventDefault();
