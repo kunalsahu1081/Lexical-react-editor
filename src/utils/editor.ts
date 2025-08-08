@@ -1,8 +1,9 @@
 import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode} from "lexical";
 import {$createMyParagraphNode, $isMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
+import {getMappedStyles} from "@/services/hooks/hkToolbarState";
 
 
-export const applyStylesToParagraph = (editor, style) => {
+export const applyStylesToParagraph = (editor, style, increaseIndent = false, decreaseIndent = false) => {
 
     editor.update(() => {
         const selection = $getSelection();
@@ -34,13 +35,18 @@ export const applyStylesToParagraph = (editor, style) => {
 
             mutatedParagraphs.forEach((paragraph) => {
 
-                paragraph.setParagrphStyle(paragraph.__custom_inline_style + ' ' + style);
+                const indentStyle = getIndentStyle(paragraph.__custom_inline_style,  increaseIndent, decreaseIndent);
+                paragraph.setParagrphStyle(paragraph.__custom_inline_style + ' ' + style + indentStyle);
 
             })
 
             paragraphs.forEach((paragraph) => {
 
-                const {node} = $createMyParagraphNode(style);
+                const indentStyle = getIndentStyle('', increaseIndent, decreaseIndent);
+
+                console.log(indentStyle, 'indent style')
+
+                const {node} = $createMyParagraphNode(style + indentStyle);
 
                 const children = paragraph.getChildren().slice();
 
@@ -55,4 +61,21 @@ export const applyStylesToParagraph = (editor, style) => {
 
         }
     });
+}
+
+const getIndentStyle = (current_style = '',  increaseIndent, decreaseIndent) => {
+
+    let indent_style = '';
+
+    const current_style_obj = getMappedStyles(current_style);
+
+    const left_padding = current_style_obj["padding-left"] || '0px';
+
+    if (increaseIndent) {
+        indent_style = "padding-left: " + (parseInt(left_padding.replace('px', '')) + 8) + 'px;'
+    } else if (decreaseIndent) {
+        indent_style = "padding-left: " +  (Math.max(parseInt(left_padding.replace('px', '')) - 8, 0)) + 'px;'
+    }
+
+    return indent_style
 }

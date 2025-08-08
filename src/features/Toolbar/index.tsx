@@ -13,6 +13,8 @@ import ParagraphSpacing from "@/features/Toolbar/sections/paragraphSpacing";
 import FontSize from "@/features/Toolbar/sections/fontSize";
 import AddChecklist from "@/features/Toolbar/sections/addChecklist";
 import AddUnorderedList from "@/features/Toolbar/sections/addUnorderedList";
+import AddIndent from "@/features/Toolbar/sections/addIndent";
+import RemoveIndent from "@/features/Toolbar/sections/removeIndent";
 
 
 const Toolbar = () => {
@@ -133,6 +135,10 @@ const Toolbar = () => {
                  <TB.separator/>
 
                 <TB.section>
+
+                    <AddIndent />
+
+                    <RemoveIndent />
 
                     <AddChecklist />
 
