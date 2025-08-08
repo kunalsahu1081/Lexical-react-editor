@@ -1,7 +1,7 @@
 import {MyListNode} from "@/services/Plugins/MyListNode";
 import {$createParagraphNode, $createTextNode, $getRoot, $setSelection, LexicalNode, ParagraphNode} from "lexical";
 import {$createMyParagraphNode} from "@/services/Plugins/MyParagraphNode";
-import {$createMyListNodeItem} from "@/services/Plugins/MyListNodeItem";
+import {$createMyListNodeItem, MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
 
 export const insertSimilarNodeAfter = (deletionNode: LexicalNode) => {
@@ -22,16 +22,20 @@ export const insertSimilarNodeAfter = (deletionNode: LexicalNode) => {
 
             if (deletionNode.getParent().getChildren().length == 1) {
                 // remove parent if parent has no children
-                insertAndDelete(deletionNode.getParent(), deletionNode.getParent(), deletionNode.getParent()?.getParent());
+                insertAndDelete(deletionNode.getParent(), deletionNode.getParent().getParent(), deletionNode.getParent()?.getParent());
             } else {
-                insertAndDelete(deletionNode, deletionNode.getParent(), deletionNode.getParent()?.getParent());
+                insertAndDelete(deletionNode, deletionNode.getParent().getParent(), deletionNode.getParent()?.getParent());
             }
 
         }
 
     } else {
 
-        insertAndDelete(deletionNode, deletionNode.getParent(), deletionNode);
+        let insertAfter = deletionNode;
+
+        if (deletionNode.getParent() instanceof MyListNodeItem) insertAfter = deletionNode.getParent();
+
+        insertAndDelete(deletionNode, deletionNode.getParent(), insertAfter);
 
     }
 
