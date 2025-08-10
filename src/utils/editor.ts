@@ -44,8 +44,6 @@ export const applyStylesToParagraph = (editor, style, increaseIndent = false, de
 
                 const indentStyle = getIndentStyle('', increaseIndent, decreaseIndent);
 
-                console.log(indentStyle, 'indent style')
-
                 const {node} = $createMyParagraphNode(style + indentStyle);
 
                 const children = paragraph.getChildren().slice();
