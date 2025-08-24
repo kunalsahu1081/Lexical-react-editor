@@ -11,16 +11,6 @@
       "require": "./dist/bundle/index.umd.js",
       "types": "./dist/types/index.d.ts",
       "import": "./dist/bundle/index.es.js"
-    },
-    "./editor": {
-      "require": "./dist/bundle/index.umd.js",
-      "types": "./dist/types/features/editor/editor.d.ts",
-      "import": "./dist/bundle/index.es.js"
-    },
-    "./toolbar": {
-      "require": "./dist/bundle/index.umd.js",
-      "types": ["./dist/types/features/Toolbar/index.d.ts", "./dist/types/features/Toolbar/toolbarExports.d.ts"],
-      "import": "./dist/bundle/index.es.js"
     }
   },
   "files": [

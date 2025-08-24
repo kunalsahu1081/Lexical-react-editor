@@ -11,7 +11,8 @@ export default defineConfig({
             copyDtsFiles: true,
             outDir: "dist/types",
             include: ["src/index.ts", "src/features/editor/editor.tsx", "src/features/Toolbar"],
-            tsconfigPath: './tsconfig.app.json'
+            tsconfigPath: './tsconfig.app.json',
+            rollupTypes: true,
         }),
     ],
     resolve: {
