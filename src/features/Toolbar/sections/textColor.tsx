@@ -1,22 +1,26 @@
-import React, {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useState, memo, FunctionComponent} from "react";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import TB, {ToolbarButton} from "@/components/toolbar";
+import {ToolbarButton} from "@/components/toolbar";
 import {MdFormatColorText} from "react-icons/md";
 import {HexColorPicker} from "react-colorful";
+import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
-const TextColor = ({color, changeColorState}) => {
+const TextColor = () => {
 
     const [editor] = useLexicalComposerContext();
+    const toolBarState = useToolbarState(editor);
 
     const [show_color_picker, set_show_color_picker] = useState(false);
+    const [color, set_color] = useState('black');
 
     const onColorChange = useCallback((color) => {
 
         editor.update(() => {
             const selection = $getSelection();
+            set_color(color.toString());
 
             if ($isRangeSelection(selection)) {
                 $patchStyleText(selection, {color: color.toString()});
@@ -24,6 +28,10 @@ const TextColor = ({color, changeColorState}) => {
         });
 
     }, [editor])
+
+    useEffect(() => {
+        set_color(toolBarState.color);
+    }, [toolBarState.color]);
 
 
     const closeColorPicker = () => {
@@ -43,6 +51,7 @@ const TextColor = ({color, changeColorState}) => {
     return <>
 
         <ToolbarButton onPress={() => set_show_color_picker(true)}>
+
             <MdFormatColorText style={{height: '20px'}} color={color || ''}/>
 
         </ToolbarButton>
@@ -57,7 +66,6 @@ const TextColor = ({color, changeColorState}) => {
             {show_color_picker ? <HexColorPicker
                 color={color || 'black'}
                 onChange={(color) => {
-                    changeColorState((prev) => ({...prev, color: color}));
                     onColorChange(color);
                 }}
             /> : null}
@@ -68,4 +76,4 @@ const TextColor = ({color, changeColorState}) => {
 
 }
 
-export default React.memo(TextColor);
+export default memo(TextColor as FunctionComponent);

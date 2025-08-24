@@ -2,6 +2,7 @@ import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
 import {useEffect, useState} from "react";
+import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
 const fontControlStyles = {
@@ -25,15 +26,16 @@ const separatorStyles = {
     flexShrink: 0,
 }
 
-const FontSize = ({Ssize = '12'}) => {
+const FontSize = () => {
 
     const [editor] = useLexicalComposerContext();
+    const toolBarState = useToolbarState(editor);
 
     const [current_size, set_current_size] = useState(0);
 
     useEffect(() => {
-        set_current_size(parseInt(Ssize));
-    }, [Ssize]);
+        set_current_size(parseInt(toolBarState.size));
+    }, [toolBarState.size]);
 
     useEffect(() => {
 

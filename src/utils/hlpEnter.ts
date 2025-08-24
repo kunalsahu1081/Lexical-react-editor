@@ -85,7 +85,7 @@ export const enterCustomNodeOnEnterPress = (selection: RangeSelection, selected_
             const {node} = $createMyListNodeItem();
             newCustomNode = node;
         } else {
-            return;
+            return false;
         }
 
         const {node: newParagraphNode} = $createMyParagraphNode();

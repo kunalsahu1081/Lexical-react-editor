@@ -4,25 +4,18 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "node_modules/@types/node/module.d.ts",
   ],
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "strictNullChecks": false,
     "target": "es2015",
     "strict": false,
+    "moduleResolution": "nodenext",
     "paths": {
       "@/*": [
-        "./src/*"
-      ],
-      "@services/*": [
-        "./services/*"
-      ],
-      "@libraries/*": [
-        "./components/shared/library/*"
-      ],
-      "@components/*": [
-        "./components/*"
+        "src/*"
       ]
     }
   },

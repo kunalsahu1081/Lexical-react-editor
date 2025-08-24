@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import TB, {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
-import {MdFormatLineSpacing} from "react-icons/md";
+import {useEffect, useState, memo, FunctionComponent} from "react";
+import {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {applyStylesToParagraph} from "@/utils/editor";
+import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
 const spacingList = [
@@ -10,15 +10,22 @@ const spacingList = [
 ]
 
 
-const ParagraphSpacing = ({Sspacing = 1.5}) => {
+const ParagraphSpacing = () => {
 
     const [show_spacing_options, set_show_spacing_options] = useState(false);
+    const [s_spacing, set_s_spacing] = useState(1.5);
 
     const [editor] = useLexicalComposerContext();
+    const toolBarState = useToolbarState(editor);
 
+
+    useEffect(() => {
+        set_s_spacing(toolBarState.p_spacing)
+    }, [toolBarState.p_spacing]);
 
     const applyLineSpacing = (spacing) => {
 
+        set_s_spacing(spacing);
         applyStylesToParagraph(editor, `margin-bottom: ${spacing / 2}px; margin-top: ${spacing / 2}px;`);
 
     }
@@ -71,7 +78,7 @@ const ParagraphSpacing = ({Sspacing = 1.5}) => {
 
                     {
                         spacingList.map((spacing) => {
-                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</DropdownItem>
+                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={s_spacing == spacing}>{spacing}</DropdownItem>
                         })
                     }
 
@@ -85,4 +92,4 @@ const ParagraphSpacing = ({Sspacing = 1.5}) => {
 
 }
 
-export default React.memo(ParagraphSpacing)
+export default memo(ParagraphSpacing as FunctionComponent)

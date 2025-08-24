@@ -5,10 +5,10 @@ import {isEqual} from 'lodash'
 
 interface IToolBarState {
 
-    is_bold: boolean,
-    is_underline: boolean,
-    is_strike: boolean,
-    is_italic: boolean,
+    bold: boolean,
+    underline: boolean,
+    strikethrough: boolean,
+    italic: boolean,
     color: string,
     font: string,
     align: string,
@@ -22,10 +22,10 @@ interface IToolBarState {
 export const useToolbarState = (editor: LexicalEditor) => {
 
     const [toolbarState, setToolBarState] = useState<IToolBarState>({
-        is_bold: false,
-        is_underline: false,
-        is_strike: false,
-        is_italic: false,
+        bold: false,
+        underline: false,
+        strikethrough: false,
+        italic: false,
         color: undefined,
         font: undefined,
         align: "left",
@@ -51,11 +51,11 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         ? anchorNode
                         : anchorNode.getFirstDescendant();
 
-                    const newToolbarState = {
-                        is_bold: false,
-                        is_underline: false,
-                        is_strike: false,
-                        is_italic: false,
+                    const newToolbarState: IToolBarState = {
+                        bold: false,
+                        underline: false,
+                        strikethrough: false,
+                        italic: false,
                         color: "",
                         font: "",
                         align: "left",
@@ -85,10 +85,10 @@ export const useToolbarState = (editor: LexicalEditor) => {
 
                         const mapped_styles = getMappedStyles(styles);
 
-                        newToolbarState.is_bold = textNode.hasFormat('bold');
-                        newToolbarState.is_italic = textNode.hasFormat('italic');
-                        newToolbarState.is_strike = textNode.hasFormat("strikethrough");
-                        newToolbarState.is_underline = textNode.hasFormat('underline');
+                        newToolbarState.bold = textNode.hasFormat('bold');
+                        newToolbarState.italic = textNode.hasFormat('italic');
+                        newToolbarState.strikethrough = textNode.hasFormat("strikethrough");
+                        newToolbarState.underline = textNode.hasFormat('underline');
                         newToolbarState.color = mapped_styles?.color;
                         newToolbarState.font = mapped_styles["font-family"];
                         newToolbarState.background = mapped_styles["background"];

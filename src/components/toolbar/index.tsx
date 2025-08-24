@@ -3,13 +3,13 @@ import {GiCheckMark} from "react-icons/gi";
 import {useContext} from "react";
 import {defaultEditorTheme, EditorTheme} from "@/features/editor/editor";
 
-const TB = ({children}) => {
+export const ToolBar = ({children}) => {
 
     const theme = useContext(EditorTheme);
 
     return <>
 
-        <div className={theme.toolbarClassName || 'editorToolbar'}>
+        <div className={theme.toolbarClassName + ' editorToolbar'}>
 
             {children}
 
@@ -20,7 +20,7 @@ const TB = ({children}) => {
 
 }
 
-TB.section = ({children}) => {
+export const TSection = ({children}) => {
 
     return <>
 
@@ -34,7 +34,7 @@ TB.section = ({children}) => {
 
 }
 
-TB.separator = () => {
+export const TSeparator = () => {
 
     return <>
 
@@ -44,7 +44,7 @@ TB.separator = () => {
 
 }
 
-TB.row = ({children, }) => {
+export const TRow = ({children, }) => {
 
     return <>
 
@@ -119,4 +119,4 @@ export const DropdownItem = ({children, selected, onClick}) => {
 }
 
 
-export default TB;
+export default ToolBar;

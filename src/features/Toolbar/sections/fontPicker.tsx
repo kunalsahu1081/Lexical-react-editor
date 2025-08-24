@@ -1,8 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
+import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
+import {EditorTheme} from "@/features/editor/editor.js";
 
 
 const font_list = [
@@ -15,20 +17,28 @@ const font_list = [
 ]
 
 interface IFontPicker {
-    sFont?: string;
+    fonts?: string[];
 }
 
-const FontPicker = ({sFont = "Winky Rough"} : IFontPicker) => {
+const FontPicker = ({fonts = []} : IFontPicker) => {
 
     const [editor] = useLexicalComposerContext();
-
+    const editorTheme = useContext(EditorTheme);
+    const toolBarState = useToolbarState(editor);
+    
     const [show_dropdown, set_show_dropdown] = useState(false);
+    const [font, set_font] = useState(editorTheme.defaultFont);
+
+
+    useEffect(() => {
+        set_font(toolBarState.font || editorTheme.defaultFont);
+    }, [toolBarState]);
 
     const onFontChange = useCallback((event) => {
 
         const font_name = event;
-
         set_show_dropdown(false)
+        set_font(font_name);
 
         editor.update(() => {
             const selection = $getSelection();
@@ -69,21 +79,21 @@ const FontPicker = ({sFont = "Winky Rough"} : IFontPicker) => {
                     set_show_dropdown((prev) => !prev)
                 }}
             >
-                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}> {sFont || "Roboto"} </div>
+                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}> {font || "Roboto"} </div>
             </ToolbarButton>
 
             {show_dropdown ? <DropdownList>
 
-                {font_list.map((font) => {
+                {(fonts.length ? fonts : font_list).map((lfont) => {
 
                     return <DropdownItem
-                        key={font}
-                        selected={font === (sFont)}
+                        key={lfont}
+                        selected={lfont === (font)}
                         onClick={() => {
-                            onFontChange(font)
+                            onFontChange(lfont)
                         }}
                     >
-                        {font}
+                        {lfont}
                     </DropdownItem>
 
                 })}

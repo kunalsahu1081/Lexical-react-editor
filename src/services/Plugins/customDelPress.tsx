@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {$createParagraphNode, $createTextNode, $getSelection, $setSelection, COMMAND_PRIORITY_HIGH, DELETE_CHARACTER_COMMAND, KEY_BACKSPACE_COMMAND, RangeSelection, TextNode} from "lexical";
+import {$getSelection, COMMAND_PRIORITY_HIGH, DELETE_CHARACTER_COMMAND, KEY_BACKSPACE_COMMAND, RangeSelection, TextNode} from "lexical";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import {MyListNodeItem} from "@/services/Plugins/MyListNodeItem";

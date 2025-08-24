@@ -1,7 +1,7 @@
-import TB, {ToolbarButton} from "@/components/toolbar";
+import {ToolbarButton} from "@/components/toolbar";
 import {MdOutlineChecklist} from "react-icons/md";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {$getRoot, $getSelection, $insertNodes, $isParagraphNode, $isRangeSelection, $isTextNode, ParagraphNode} from "lexical";
+import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode, ParagraphNode} from "lexical";
 import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 
 

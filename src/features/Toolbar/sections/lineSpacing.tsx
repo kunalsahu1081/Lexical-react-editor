@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from "react";
-import TB, {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
+import {useEffect, useState, memo, FunctionComponent} from "react";
+import {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {MdFormatLineSpacing} from "react-icons/md";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {applyStylesToParagraph} from "@/utils/editor";
+import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
 const spacingList = [
@@ -10,18 +11,25 @@ const spacingList = [
 ]
 
 
-const LineSpacing = ({Sspacing = 1.5}) => {
+const LineSpacing = () => {
 
     const [show_spacing_options, set_show_spacing_options] = useState(false);
+    const [s_spacing, set_s_spacing] = useState('1.5');
 
     const [editor] = useLexicalComposerContext();
+    const toolBarState = useToolbarState(editor);
 
 
     const applyLineSpacing = (spacing) => {
 
+        set_s_spacing(spacing);
         applyStylesToParagraph(editor, `line-height: ${spacing};`);
 
     }
+
+    useEffect(() => {
+        set_s_spacing(toolBarState.line_height);
+    }, [toolBarState.line_height]);
 
     const closeColorPicker = (ev) => {
 
@@ -64,7 +72,7 @@ const LineSpacing = ({Sspacing = 1.5}) => {
 
                     {
                         spacingList.map((spacing) => {
-                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={Sspacing == spacing}>{spacing}</DropdownItem>
+                            return <DropdownItem onClick={() => applyLineSpacing(spacing)} selected={s_spacing == spacing}>{spacing}</DropdownItem>
                         })
                     }
 
@@ -78,4 +86,4 @@ const LineSpacing = ({Sspacing = 1.5}) => {
 
 }
 
-export default React.memo(LineSpacing)
+export default memo(LineSpacing as FunctionComponent)

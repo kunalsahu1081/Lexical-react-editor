@@ -1,13 +1,7 @@
-import TB, {ToolbarButton} from "@/components/toolbar";
-import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import {FORMAT_TEXT_COMMAND} from 'lexical';
-import {useCallback, useEffect, useState} from "react";
-import {FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight, FaStrikethrough, FaUnderline} from "react-icons/fa";
-import {useToolbarState} from "@/services/hooks/hkToolbarState";
+import ToolBar, {TRow, TSection, TSeparator} from "@/components/toolbar";
 import FontPicker from "@/features/Toolbar/sections/fontPicker";
 import TextColor from "@/features/Toolbar/sections/textColor";
 import HighlightText from "@/features/Toolbar/sections/highlightText";
-import {applyStylesToParagraph} from "@/utils/editor";
 import LineSpacing from "@/features/Toolbar/sections/lineSpacing";
 import ParagraphSpacing from "@/features/Toolbar/sections/paragraphSpacing";
 import FontSize from "@/features/Toolbar/sections/fontSize";
@@ -15,126 +9,79 @@ import AddChecklist from "@/features/Toolbar/sections/addChecklist";
 import AddUnorderedList from "@/features/Toolbar/sections/addUnorderedList";
 import AddIndent from "@/features/Toolbar/sections/addIndent";
 import RemoveIndent from "@/features/Toolbar/sections/removeIndent";
+import {Bold, Italic, StrikeThrough, Underline} from "@/features/Toolbar/sections/commonTextControls.js";
+import {AlignCenter, AlignJustify, AlignLeft, AlignRight} from "@/features/Toolbar/sections/paragraphStyling.js";
 
 
 const Toolbar = () => {
 
-    const [editor] = useLexicalComposerContext();
-
-    const toolBarState = useToolbarState(editor);
-
-    const [c_toolbar_state, set_c_toolbar_state] = useState(toolBarState);
-
-
-    useEffect(() => {
-        set_c_toolbar_state(toolBarState);
-    }, [toolBarState]);
-
-    const formatText = useCallback((command) => {
-
-        editor.update(() => {
-
-            if (command === 'bold') set_c_toolbar_state((prev) => ({...c_toolbar_state, is_bold: !prev.is_bold}));
-            if (command === 'underline') set_c_toolbar_state(prev => ({...c_toolbar_state, is_underline: !prev.is_underline}));
-            if (command === 'italic') set_c_toolbar_state(prev => ({...c_toolbar_state, is_italic: !prev.is_italic}));
-            if (command === 'strikethrough') set_c_toolbar_state(prev => ({...c_toolbar_state, is_strike: !prev.is_strike}));
-
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, command);
-        });
-
-    }, [editor])
-
-    const applyParagraphStyles = useCallback((style) => {
-
-        applyStylesToParagraph(editor, style);
-
-    }, [editor])
-
-
     return <>
 
 
-        <TB>
-            <TB.row>
+        <ToolBar>
+            <TRow>
 
-                <TB.section>
+                <TSection>
 
-                    <ToolbarButton isActive={c_toolbar_state.is_bold} onPress={() => formatText('bold')}>
-                        B
-                    </ToolbarButton>
+                    <Bold />
 
+                    <Italic />
 
-                    <ToolbarButton isActive={c_toolbar_state.is_italic} onPress={() => formatText('italic')}>
-                        I
-                    </ToolbarButton>
+                    <Underline />
 
-                    <ToolbarButton isActive={c_toolbar_state.is_underline} onPress={() => formatText('underline')}>
-                        <FaUnderline/>
-                    </ToolbarButton>
+                    <StrikeThrough />
 
-                    <ToolbarButton isActive={c_toolbar_state.is_strike} onPress={() => formatText('strikethrough')}>
-                        <FaStrikethrough/>
-                    </ToolbarButton>
+                </TSection>
 
-                </TB.section>
+                <TSeparator/>
 
-                <TB.separator/>
+                <TSection>
 
-                <TB.section>
+                    <FontPicker  />
 
-                    <FontPicker sFont={c_toolbar_state.font} />
+                </TSection>
 
-                </TB.section>
+                <TSeparator/>
 
-                <TB.separator/>
+                <TSection>
 
-                <TB.section>
+                    <AlignLeft />
 
-                    <ToolbarButton isActive={c_toolbar_state.align === 'center'} onPress={() => applyParagraphStyles("text-align: center;")}>
-                        <FaAlignCenter/>
-                    </ToolbarButton>
+                    <AlignCenter />
 
-                    <ToolbarButton isActive={c_toolbar_state.align === 'left'} onPress={() => applyParagraphStyles("text-align: left;")}>
-                        <FaAlignLeft/>
-                    </ToolbarButton>
+                    <AlignRight />
 
-                    <ToolbarButton isActive={c_toolbar_state.align === 'right'} onPress={() => applyParagraphStyles("text-align: right;")}>
-                        <FaAlignRight/>
-                    </ToolbarButton>
+                    <AlignJustify />
 
-                    <ToolbarButton isActive={c_toolbar_state.align === 'justify'} onPress={() => applyParagraphStyles("text-align: justify;")}>
-                        <FaAlignJustify/>
-                    </ToolbarButton>
+                </TSection>
 
-                </TB.section>
+            </TRow>
 
-            </TB.row>
+            <TRow>
 
-            <TB.row>
+                <TSection>
 
-                <TB.section>
+                    <TextColor />
 
-                    <TextColor color={c_toolbar_state.color} changeColorState={set_c_toolbar_state} />
+                    <HighlightText />
 
-                    <HighlightText color={c_toolbar_state.background} changeColorState={set_c_toolbar_state} />
+                    <LineSpacing  />
 
-                    <LineSpacing Sspacing={c_toolbar_state.line_height} />
+                    <ParagraphSpacing />
 
-                    <ParagraphSpacing Sspacing={c_toolbar_state.p_spacing} />
+                </TSection>
 
-                </TB.section>
+                <TSeparator/>
 
-                <TB.separator/>
+                <TSection>
 
-                <TB.section>
+                    <FontSize />
 
-                    <FontSize Ssize={c_toolbar_state.size} />
+                </TSection>
 
-                </TB.section>
+                 <TSeparator/>
 
-                 <TB.separator/>
-
-                <TB.section>
+                <TSection>
 
                     <AddIndent />
 
@@ -144,11 +91,11 @@ const Toolbar = () => {
 
                     <AddUnorderedList />
 
-                </TB.section>
+                </TSection>
 
-            </TB.row>
+            </TRow>
 
-        </TB>
+        </ToolBar>
 
     </>
 
