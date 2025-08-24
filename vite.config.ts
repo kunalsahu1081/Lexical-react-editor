@@ -9,8 +9,8 @@ export default defineConfig({
         dts({
             insertTypesEntry: true,
             copyDtsFiles: true,
-            outDir: "dist/types", // ✅ correct option
-            include: ["src"],
+            outDir: "dist/types",
+            include: ["src/index.ts", "src/features/editor/editor.tsx", "src/features/Toolbar"],
             tsconfigPath: './tsconfig.app.json'
         }),
     ],
