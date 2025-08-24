@@ -1,5 +1,5 @@
 import {ReactNode, useCallback, useEffect, useState} from "react";
-import {FORMAT_TEXT_COMMAND} from "lexical";
+import {FORMAT_TEXT_COMMAND, TextFormatType} from "lexical";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {ToolbarButton} from "@/components/toolbar/index.js";
 import {FaBold, FaItalic, FaStrikethrough, FaUnderline} from "react-icons/fa";
@@ -7,7 +7,7 @@ import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
 interface ITextFormatter {
-    type: 'bold' | 'underline' | 'italic' | 'strikethrough' | 'color';
+    type: 'bold' | 'underline' | 'italic' | 'strikethrough';
     children: ReactNode;
 }
 

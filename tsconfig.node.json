@@ -8,7 +8,6 @@
     "declaration": true,
     "outDir": "dist",
     "rootDir": "src",
-    "emitDeclarationOnly": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -16,7 +15,6 @@
     "noImplicitAny": false,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
 
     /* Linting */
     "strict": true,

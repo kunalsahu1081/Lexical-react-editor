@@ -1,6 +1,6 @@
 
-export * as Editor from './features/editor/editor';
+export * from './features/editor/editor';
 
-export * as Toolbar from './features/Toolbar';
+export * from './features/Toolbar/index';
 
-export * as ToolbarButtons from './features/Toolbar/toolbarExports';
+export * from './features/Toolbar/toolbarExports';

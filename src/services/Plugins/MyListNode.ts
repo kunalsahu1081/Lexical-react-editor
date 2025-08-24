@@ -44,7 +44,7 @@ export class MyListNode extends ElementNode {
         return externalDiv;
     }
 
-    updateDOM(_prevNode: this, _dom: HTMLElement, _config: EditorConfig): boolean {
+    updateDOM(_prevNode: this, _dom: HTMLOListElement, _config: EditorConfig): boolean {
 
         if (_prevNode.__is_ordered !== this.__is_ordered) {
             _dom.classList.add(this.__is_ordered ? 'orderedList' : 'unOrderedList'); // ✅ update when changed

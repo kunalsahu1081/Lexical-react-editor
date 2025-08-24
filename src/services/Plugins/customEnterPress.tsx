@@ -1,5 +1,5 @@
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
-import React, {useEffect} from "react";
+import {FunctionComponent, memo, useEffect} from "react";
 import {COMMAND_PRIORITY_HIGH, INSERT_PARAGRAPH_COMMAND, KEY_ENTER_COMMAND} from "lexical";
 import {enterSimilarNodeNext} from "@/utils/hlpEnter";
 
@@ -48,4 +48,4 @@ const EnterPressPlugin = () => {
 
 }
 
-export default React.memo(EnterPressPlugin)
+export default memo(EnterPressPlugin as FunctionComponent)

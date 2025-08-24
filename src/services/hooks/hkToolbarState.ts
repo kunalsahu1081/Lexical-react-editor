@@ -89,7 +89,7 @@ export const useToolbarState = (editor: LexicalEditor) => {
                         newToolbarState.italic = textNode.hasFormat('italic');
                         newToolbarState.strikethrough = textNode.hasFormat("strikethrough");
                         newToolbarState.underline = textNode.hasFormat('underline');
-                        newToolbarState.color = mapped_styles?.color;
+                        newToolbarState.color = mapped_styles["color"];
                         newToolbarState.font = mapped_styles["font-family"];
                         newToolbarState.background = mapped_styles["background"];
                         newToolbarState.size = (mapped_styles["font-size"] || '12px').replace('px', '');

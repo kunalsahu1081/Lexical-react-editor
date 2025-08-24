@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import {FunctionComponent, memo, useCallback, useContext, useEffect, useState} from "react";
 import {DropdownItem, DropdownList, ToolbarButton, ToolbarDropdown} from "@/components/toolbar";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {$getSelection, $isRangeSelection} from "lexical";
@@ -107,4 +107,4 @@ const FontPicker = ({fonts = []} : IFontPicker) => {
 
 }
 
-export default React.memo(FontPicker)
+export default memo(FontPicker as FunctionComponent)

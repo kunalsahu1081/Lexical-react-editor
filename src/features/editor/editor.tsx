@@ -4,15 +4,14 @@ import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary";
 import {ContentEditable} from "@lexical/react/LexicalContentEditable";
 import {RichTextPlugin} from "@lexical/react/LexicalRichTextPlugin";
 import * as React from "react";
+import {createContext} from "react";
 import '../../styles/editor.css'
 import {Klass, LexicalNode, LexicalNodeReplacement, ParagraphNode, TextNode} from "lexical";
 import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
 import EnterPressPlugin from "@/services/Plugins/customEnterPress";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import BackPressPlugin from "@/services/Plugins/customDelPress";
-import {ListPlugin} from "@lexical/react/LexicalListPlugin";
 import {ListItemNode, ListNode} from "@lexical/list";
-import {createContext} from "react";
 import {MyListNode} from "@/services/Plugins/MyListNode";
 import {MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
@@ -52,7 +51,7 @@ const Editor = ({children, theme = defaultEditorTheme, nodes = []} : IEditor) =>
             initialConfig={{
                 namespace: 'VanillaLexicalEditor',
                 onError: (error) => console.error('Lexical Error:', error),
-                nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode, ListNode, ListItemNode, MyListNode, MyListNodeItem, ...nodes],
+                nodes: [ParagraphNode, TextNode, MyParagraphNode, MyCheckBoxNode, MyListNode, MyListNodeItem, ...nodes],
                 theme: {
                     text: {
                         bold: "bold",

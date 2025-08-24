@@ -9,10 +9,12 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": true,
     "strictNullChecks": false,
     "target": "es2015",
     "strict": false,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "paths": {
       "@/*": [
         "src/*"

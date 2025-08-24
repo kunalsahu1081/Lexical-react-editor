@@ -11,10 +11,7 @@ const BackPressPlugin = () => {
     const [editor] = useLexicalComposerContext();
 
     useEffect(() => {
-        const deregister = editor.registerCommand(DELETE_CHARACTER_COMMAND, (pd) => {
-
-            // prevent deletion
-            if (pd?.prevent_deletion) return true;
+        const deregister = editor.registerCommand(DELETE_CHARACTER_COMMAND, () => {
 
             // default behavior
             return false;

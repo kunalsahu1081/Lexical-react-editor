@@ -10,7 +10,7 @@ export const insertSimilarNodeAfter = (deletionNode: LexicalNode) => {
 
         if (deletionNode?.getParent()?.getParent() instanceof MyListNode) {
 
-            const {node: cloneNode} = $createMyListNodeItem("")
+            const {node: cloneNode} = $createMyListNodeItem()
 
             if (deletionNode.getParent().getChildren().length == 1) {
                 insertAndDelete(deletionNode.getParent(), cloneNode, deletionNode.getParent()?.getParent()?.getChildren()[0]);

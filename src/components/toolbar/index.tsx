@@ -1,6 +1,6 @@
 import '../../styles/toolbar.css'
 import {GiCheckMark} from "react-icons/gi";
-import {useContext} from "react";
+import {ReactNode, useContext} from "react";
 import {defaultEditorTheme, EditorTheme} from "@/features/editor/editor";
 
 export const ToolBar = ({children}) => {
@@ -56,7 +56,14 @@ export const TRow = ({children, }) => {
 
 }
 
-export const ToolbarButton = ({children, onPress, isActive, style}) => {
+interface IToolbarbutton {
+    children: ReactNode;
+    onPress: () => void;
+    isActive?: boolean;
+    style?: object;
+}
+
+export const ToolbarButton = ({children, onPress, isActive, style}: IToolbarbutton) => {
 
     const theme = useContext(EditorTheme);
 

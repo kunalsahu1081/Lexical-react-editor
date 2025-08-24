@@ -14,7 +14,7 @@ const spacingList = [
 const LineSpacing = () => {
 
     const [show_spacing_options, set_show_spacing_options] = useState(false);
-    const [s_spacing, set_s_spacing] = useState('1.5');
+    const [s_spacing, set_s_spacing] = useState(1.5);
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);
@@ -28,7 +28,7 @@ const LineSpacing = () => {
     }
 
     useEffect(() => {
-        set_s_spacing(toolBarState.line_height);
+        set_s_spacing(parseFloat(toolBarState.line_height));
     }, [toolBarState.line_height]);
 
     const closeColorPicker = (ev) => {
