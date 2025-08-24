@@ -42,7 +42,7 @@ interface IEditor {
 
 export const EditorTheme = createContext(defaultEditorTheme)
 
-const Editor = ({children, theme = defaultEditorTheme, nodes = []} : IEditor) => {
+export const Editor = ({children, theme = defaultEditorTheme, nodes = []} : IEditor) => {
 
 
     return <>

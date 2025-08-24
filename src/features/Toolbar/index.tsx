@@ -13,7 +13,7 @@ import {Bold, Italic, StrikeThrough, Underline} from "@/features/Toolbar/section
 import {AlignCenter, AlignJustify, AlignLeft, AlignRight} from "@/features/Toolbar/sections/paragraphStyling.js";
 
 
-const Toolbar = () => {
+export const Toolbar = () => {
 
     return <>
 
