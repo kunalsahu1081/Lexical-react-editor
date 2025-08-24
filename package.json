@@ -11,10 +11,12 @@
       "require": "./dist/bundle/index.umd.js",
       "types": "./dist/types/index.d.ts",
       "import": "./dist/bundle/index.es.js"
-    }
+    },
+    "./styles/*": "./dist/bundle/assets/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "dist/bundle/assets"
   ],
   "scripts": {
     "dev": "vite",
