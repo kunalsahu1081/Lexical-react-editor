@@ -11,7 +11,6 @@ import {MyParagraphNode} from "@/services/Plugins/MyParagraphNode";
 import EnterPressPlugin from "@/services/Plugins/customEnterPress";
 import {MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 import BackPressPlugin from "@/services/Plugins/customDelPress";
-import {ListItemNode, ListNode} from "@lexical/list";
 import {MyListNode} from "@/services/Plugins/MyListNode";
 import {MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
