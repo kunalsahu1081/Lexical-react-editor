@@ -1,6 +1,6 @@
 import {ToolbarButton} from "@/components/toolbar/index.js";
 import {FaAlignCenter, FaAlignJustify, FaAlignLeft, FaAlignRight} from "react-icons/fa";
-import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {LexicalComposerContext, useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 import {ReactNode, useCallback, useEffect, useState} from "react";
 import {applyStylesToParagraph} from "@/utils/editor.js";
@@ -20,6 +20,13 @@ const ParagraphStyling = ({type, children} : IParagraphStyling) => {
     useEffect(() => {
         set_is_active(Boolean(toolBarState.align === type));
     }, [toolBarState]);
+
+    useEffect(() => {
+        //@ts-ignore
+        window.__DEBUG_LEXICAL_STATE2 = LexicalComposerContext;
+
+        console.log(LexicalComposerContext, 'context from editor main 2')
+    }, []);
 
     const applyParagraphStyles = useCallback(() => {
 
