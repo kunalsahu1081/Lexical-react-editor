@@ -1,6 +1,6 @@
 import {ReactNode, useCallback, useEffect, useState} from "react";
-import {FORMAT_TEXT_COMMAND, TextFormatType} from "lexical";
-import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
+import {FORMAT_TEXT_COMMAND,} from "lexical";
+import {useLexicalComposerContext, LexicalComposerContext} from "@lexical/react/LexicalComposerContext";
 import {ToolbarButton} from "@/components/toolbar/index.js";
 import {FaBold, FaItalic, FaStrikethrough, FaUnderline} from "react-icons/fa";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
@@ -21,6 +21,14 @@ export const TextFormatter = ({type, children}: ITextFormatter) => {
     useEffect(() => {
         set_is_active(Boolean(toolBarState[type]));
     }, [toolBarState]);
+
+    useEffect(() => {
+        
+        //@ts-ignore
+        window.__DEBUG_LEXICAL_STATE = LexicalComposerContext;
+
+        console.log(LexicalComposerContext, 'context from editor main')
+    }, []);
 
     const formatText = useCallback(() => {
 
