@@ -28,16 +28,20 @@
     "type": "git",
     "url": "git+https://github.com/kunalsahu1081/wysiwyg-editor.git"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@lexical/list": "0.32.1",
     "@lexical/react": "0.32.1",
     "@lexical/selection": "0.32.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "lexical": "0.32.1"
+  },
+  "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
-    "lexical": "^0.32.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.525.0",
     "moment": "2.29.4",
