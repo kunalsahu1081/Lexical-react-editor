@@ -20,6 +20,7 @@ const fontControlStyles = {
 const separatorStyles = {
     height: '18px',
     minWidth: '1px',
+    width: '1px',
     borderRadius: '12px',
     background: 'black',
     display: 'flex',

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, memo, FunctionComponent} from "react";
+import {useCallback, useEffect, useState, memo, FunctionComponent, CSSProperties} from "react";
 import {$getSelection, $isRangeSelection} from "lexical";
 import {$patchStyleText} from "@lexical/selection";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
@@ -8,7 +8,12 @@ import {HexColorPicker} from "react-colorful";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
-export const TextColor = () => {
+export interface ITextColor {
+    pickerContainerStyle?: CSSProperties;
+    pickerStyle?: CSSProperties;
+}
+
+export const TextColor = ({pickerContainerStyle, pickerStyle}: ITextColor) => {
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);
@@ -48,7 +53,7 @@ export const TextColor = () => {
     }, []);
 
 
-    return <>
+    return <div style={pickerContainerStyle || {position: 'relative'}}>
 
         <ToolbarButton onPress={() => set_show_color_picker(true)}>
 
@@ -61,7 +66,7 @@ export const TextColor = () => {
                 ev.preventDefault();
                 ev.stopPropagation();
             }}
-            style={{position: 'fixed', zIndex: 12, top: '140px'}}
+            style={pickerStyle || {position: 'fixed', zIndex: 12, top: '140px'}}
         >
             {show_color_picker ? <HexColorPicker
                 color={color || 'black'}
@@ -72,7 +77,7 @@ export const TextColor = () => {
         </div>
 
 
-    </>
+    </div>
 
 }
 

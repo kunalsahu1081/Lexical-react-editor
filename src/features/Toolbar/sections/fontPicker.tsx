@@ -18,9 +18,10 @@ const font_list = [
 
 export interface IFontPicker {
     fonts?: string[];
+    pickerWidth?: string;
 }
 
-export const FontPicker = ({fonts = []} : IFontPicker) => {
+export const FontPicker = ({fonts = [], pickerWidth = '150px'} : IFontPicker) => {
 
     const [editor] = useLexicalComposerContext();
     const editorTheme = useContext(EditorTheme);
@@ -74,12 +75,12 @@ export const FontPicker = ({fonts = []} : IFontPicker) => {
         <ToolbarDropdown>
 
             <ToolbarButton
-                style={{width: '150px'}}
+                style={{width: pickerWidth}}
                 onPress={() => {
                     set_show_dropdown((prev) => !prev)
                 }}
             >
-                <div style={{width: '160px', marginLeft: '8px', textAlign: 'left'}}> {font || "Roboto"} </div>
+                <div style={{ marginLeft: '8px', textAlign: 'left'}}> {font || "Roboto"} </div>
             </ToolbarButton>
 
             {show_dropdown ? <DropdownList>

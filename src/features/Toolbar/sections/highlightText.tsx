@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState, memo, FunctionComponent} from "react";
+import {CSSProperties, FunctionComponent, memo, useCallback, useEffect, useState} from "react";
 import {ToolbarButton} from "@/components/toolbar";
 import {HexColorPicker} from "react-colorful";
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext";
@@ -8,7 +8,12 @@ import {FaHighlighter} from "react-icons/fa";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
-export const HighlightText = () => {
+export interface IHighlightText {
+    pickerContainerStyle?: CSSProperties;
+    pickerStyle?: CSSProperties;
+}
+
+export const HighlightText = ({pickerContainerStyle, pickerStyle}: IHighlightText) => {
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);
@@ -47,7 +52,7 @@ export const HighlightText = () => {
     }, []);
 
 
-    return <>
+    return <div style={pickerContainerStyle || {position: 'relative'}}>
 
         <ToolbarButton onPress={() => set_show_color_picker(true)}>
 
@@ -60,7 +65,7 @@ export const HighlightText = () => {
                 ev.preventDefault();
                 ev.stopPropagation();
             }}
-            style={{position: 'fixed', zIndex: 12, top: '140px'}}
+            style={pickerStyle || {position: 'fixed', zIndex: 12, top: '140px'}}
         >
             {show_color_picker ? <HexColorPicker
                 color={color || 'black'}
@@ -70,7 +75,7 @@ export const HighlightText = () => {
             /> : null}
         </div>
 
-    </>
+    </div>
 
 }
 
