@@ -2,22 +2,22 @@ export {Bold, Italic, StrikeThrough, Underline} from './sections/commonTextContr
 
 export {AlignLeft, AlignRight, AlignCenter, AlignJustify} from './sections/paragraphStyling';
 
-export { default as AddChecklist } from './sections/addChecklist';
+export { AddChecklist } from './sections/addChecklist';
 
-export { default as AddIndent } from './sections/addIndent';
+export { AddIndent } from './sections/addIndent';
 
-export { default as RemoveIndent } from './sections/removeIndent';
+export { RemoveIndent } from './sections/removeIndent';
 
-export { default as AddOrderedList } from './sections/addUnorderedList';
+export { AddUnorderedList } from './sections/addUnorderedList';
 
-export { default as FontPicker } from './sections/fontPicker';
+export { FontPicker } from './sections/fontPicker';
 
-export { default as FontSize } from './sections/fontSize';
+export { FontSize } from './sections/fontSize';
 
-export { default as HighlightText } from './sections/highlightText';
+export { HighlightText } from './sections/highlightText';
 
-export { default as LineSpacing } from './sections/lineSpacing';
+export { LineSpacing } from './sections/lineSpacing';
 
-export { default as ParagraphSpacing } from './sections/paragraphSpacing';
+export { ParagraphSpacing } from './sections/paragraphSpacing';
 
-export { default as TextColor } from './sections/textColor';
+export { TextColor } from './sections/textColor';

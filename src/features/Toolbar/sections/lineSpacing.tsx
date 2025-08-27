@@ -11,7 +11,7 @@ const spacingList = [
 ]
 
 
-const LineSpacing = () => {
+export const LineSpacing = () => {
 
     const [show_spacing_options, set_show_spacing_options] = useState(false);
     const [s_spacing, set_s_spacing] = useState(1.5);

@@ -4,7 +4,7 @@ import {MdOutlineFormatIndentDecrease} from "react-icons/md";
 import {applyStylesToParagraph} from "@/utils/editor";
 
 
-const RemoveIndent = () => {
+export const RemoveIndent = () => {
 
     const [editor] = useLexicalComposerContext();
 

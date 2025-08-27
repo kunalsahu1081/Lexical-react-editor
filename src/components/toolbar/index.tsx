@@ -85,9 +85,11 @@ export const ToolbarButton = ({children, onPress, isActive, style}: IToolbarbutt
 
 export const ToolbarDropdown = ({children}) => {
 
+    const theme = useContext(EditorTheme);
+
     return <>
 
-        <div className={'tbDropdown'}>
+        <div className={theme.dropdownButtonClassname}>
             {children}
         </div>
 
@@ -97,9 +99,11 @@ export const ToolbarDropdown = ({children}) => {
 
 export const DropdownList = ({children}) => {
 
+    const theme = useContext(EditorTheme);
+
     return <>
 
-        <div className={'tbDropdownList'}>
+        <div className={theme.dropdownListClassname}>
             {children}
         </div>
 
@@ -109,9 +113,11 @@ export const DropdownList = ({children}) => {
 
 export const DropdownItem = ({children, selected, onClick}) => {
 
+    const theme = useContext(EditorTheme);
+
     return <>
 
-        <div onClick={onClick} className={'tbDItem'}>
+        <div onClick={onClick} className={theme.dropdownItemClassname}>
 
             <div style={{height: '10px', width: '20px', fontSize: '10px'}}>
                 {selected ? <GiCheckMark/> : null}

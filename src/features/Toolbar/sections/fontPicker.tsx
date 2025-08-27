@@ -16,11 +16,11 @@ const font_list = [
     "Bitcount Prop Double"
 ]
 
-interface IFontPicker {
+export interface IFontPicker {
     fonts?: string[];
 }
 
-const FontPicker = ({fonts = []} : IFontPicker) => {
+export const FontPicker = ({fonts = []} : IFontPicker) => {
 
     const [editor] = useLexicalComposerContext();
     const editorTheme = useContext(EditorTheme);

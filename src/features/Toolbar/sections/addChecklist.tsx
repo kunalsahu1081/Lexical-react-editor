@@ -5,7 +5,7 @@ import {$getSelection, $isParagraphNode, $isRangeSelection, $isTextNode, Paragra
 import {$createMyCheckboxNode, MyCheckBoxNode} from "@/services/Plugins/NewCheckboxNode";
 
 
-const AddChecklist = () => {
+export const AddChecklist = () => {
 
     const [editor] = useLexicalComposerContext();
 

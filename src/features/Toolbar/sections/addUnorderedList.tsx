@@ -6,7 +6,7 @@ import {$createMyListNode, MyListNode} from "@/services/Plugins/MyListNode";
 import {$createMyListNodeItem, MyListNodeItem} from "@/services/Plugins/MyListNodeItem";
 
 
-const AddUnorderedList = () => {
+export const AddUnorderedList = () => {
 
 
     const [editor] = useLexicalComposerContext();

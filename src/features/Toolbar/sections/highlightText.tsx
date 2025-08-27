@@ -8,7 +8,7 @@ import {FaHighlighter} from "react-icons/fa";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
-const HighlightText = () => {
+export const HighlightText = () => {
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);

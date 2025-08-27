@@ -22,6 +22,9 @@ interface IDefaultEditorTheme {
     toolbarButton?: string;
     toolbarButtonActive?: string;
     defaultFont?: string;
+    dropdownButtonClassname?: string;
+    dropdownListClassname?: string;
+    dropdownItemClassname?: string;
 }
 
 export const defaultEditorTheme: IDefaultEditorTheme = {
@@ -30,7 +33,10 @@ export const defaultEditorTheme: IDefaultEditorTheme = {
     toolbarClassName: 'editorToolbar',
     toolbarButton: 'toolbarButton',
     toolbarButtonActive: 'toolbarButtonActive',
-    defaultFont: 'Winky Rough'
+    defaultFont: 'Winky Rough',
+    dropdownButtonClassname: 'tbDropdown',
+    dropdownListClassname: 'tbDropdownList',
+    dropdownItemClassname: 'tbDItem',
 }
 
 interface IEditor {
@@ -63,7 +69,7 @@ export const Editor = ({children, theme = defaultEditorTheme, nodes = []} : IEdi
             }}
         >
 
-            <EditorTheme value={theme}>
+            <EditorTheme value={{...defaultEditorTheme, ...theme}}>
 
                 {children}
 

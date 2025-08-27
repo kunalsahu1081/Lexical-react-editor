@@ -4,7 +4,7 @@ import {MdFormatIndentIncrease} from "react-icons/md";
 import {applyStylesToParagraph} from "@/utils/editor";
 
 
-const AddIndent = () => {
+export const AddIndent = () => {
 
     const [editor] = useLexicalComposerContext();
 

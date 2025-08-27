@@ -8,7 +8,7 @@ import {HexColorPicker} from "react-colorful";
 import {useToolbarState} from "@/services/hooks/hkToolbarState.js";
 
 
-const TextColor = () => {
+export const TextColor = () => {
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);

@@ -26,7 +26,7 @@ const separatorStyles = {
     flexShrink: 0,
 }
 
-const FontSize = () => {
+export const FontSize = () => {
 
     const [editor] = useLexicalComposerContext();
     const toolBarState = useToolbarState(editor);
