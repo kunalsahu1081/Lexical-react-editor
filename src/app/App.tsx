@@ -1,16 +1,35 @@
 import Editor from "../features/editor/editor";
 import Toolbar from "@/features/Toolbar";
+import Header from "@/components/header/header";
+import Sidemenu from "@/components/sidemenu";
 
 function App() {
 
     return (
         <>
 
-            <Editor >
+            <section className={"appContainer"}>
 
-                <Toolbar />
+                <Header/>
 
-            </Editor>
+                <section className={"bottomMainContainer"}>
+
+                    <Sidemenu />
+
+                    <main className={"mainContainer"}>
+
+                        <Editor>
+
+                            <Toolbar/>
+
+                        </Editor>
+
+                    </main>
+
+                </section>
+
+            </section>
+
 
         </>
     )

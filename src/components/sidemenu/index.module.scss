@@ -1,0 +1,73 @@
+
+.navigationSection {
+
+    width: 50px;
+    padding: 10px;
+    border-right: 1px solid black;
+    position: relative;
+    transition: width 1s;
+    box-sizing: border-box;
+
+
+    .navigationContainer {
+        flex: 1;
+        overflow: hidden;
+        margin-left: 20px;
+        margin-top: 90px;
+
+        ul {
+
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            a {
+                padding: 8px 8px;
+                border-radius: 8px;
+                width: 120px;
+                display: flex;
+                text-decoration: none;
+                font-family: "Poppins", sans-serif;
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--p2-text-color);
+                 box-sizing: content-box;
+            }
+
+            .selected {
+                 box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+                color: var(--primary-text-color)
+            }
+
+            a:hover {
+                box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            }
+        }
+    }
+
+    .navigationRight, .navigationLeft {
+
+        position: absolute;
+        right: -20px;
+        top: 40px;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 50%;
+        background: white;
+        z-index: 1;
+        cursor: pointer;
+
+        pointer-events: auto;
+        overflow: visible;
+
+        box-sizing: border-box;
+
+    }
+}
+
+.navigationExpanded {
+
+    width: 250px !important;
+
+}
