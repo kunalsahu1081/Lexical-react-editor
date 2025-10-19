@@ -7,6 +7,9 @@ https://lexical.dev/
 
 A Example of how to use this library can be found in /website directory of this project and hosted in this link https://lexical-text-editor-2.netlify.app/
 
+<img width="380" height="201" alt="image" src="https://github.com/user-attachments/assets/d85fe8c2-f4c4-4fe2-9ff3-542ce03644d6" />
+
+
 ## Basic Example
 
 ```js
