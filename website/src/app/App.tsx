@@ -1,6 +1,6 @@
 import Header from "@/components/header/header";
 import Sidemenu from "@/components/sidemenu";
-import {Editor, Toolbar} from "lexical-react-editor";
+import {defaultEditorTheme, Editor, Toolbar, Bold, Italic} from "lexical-react-editor";
 
 function App() {
 
@@ -17,7 +17,15 @@ function App() {
 
                     <main className={"mainContainer"}>
 
-                        <Editor>
+                        <Editor
+                            theme={{
+                                ...defaultEditorTheme,
+                                editorClassName: 'yourEditorClassName'
+                            }}
+                        >
+
+                            <Bold />
+                            <Italic />
 
                             <Toolbar/>
 

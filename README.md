@@ -1,69 +1,116 @@
-# React + TypeScript + Vite
+# Lexical Text Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a text editor library I made to support one of my projects
 
-Currently, two official plugins are available:
+It uses lexical library for rich text editing experience in the web
+https://lexical.dev/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A Example of how to use this library can be found in /website directory of this project and hosted in this link https://lexical-text-editor-2.netlify.app/
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Basic Example
 
 ```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+import {defaultEditorTheme, Editor, Bold, Italic, AddChecklist, AddIndent, AddUnorderedList} from "lexical-react-editor";
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+function App() {
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+    return (
+        <>
+
+            <div >
+
+                <Editor>
+
+                    <div className="yourToolbar">
+                        
+                        // imported buttons to perform text editing 
+                        <Bold />
+                        <Italic />
+                        <AddChecklist />
+                        <AddIndent />
+                        <AddUnorderedList />
+                        
+                    </div>
+
+                </Editor>
+
+            </div>
+
+
+        </>
+    )
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Customize Styles
+
+Optionally you can pass a theme prop to customize Editor Styling
 
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import {defaultEditorTheme, Editor, Toolbar, Bold, Italic, AddChecklist, AddIndent, AddUnorderedList} from "lexical-react-editor";
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<Editor
+    theme={{
+        ...defaultEditorTheme,
+        editorClassName: 'yourEditorClassName'
+    }}
+>
+
+    <div className="yourToolbar">
+        
+        // imported buttons to perform text editing 
+        <Bold />
+        <Italic />
+        <AddChecklist />
+        <AddIndent />
+        <AddUnorderedList />
+        
+    </div>
+
+</Editor>
+```
+
+Other available properties in defaultEditorTheme are in below interface
+
+```ts
+interface IDefaultEditorTheme {
+    editorClassName: string;
+    placeholderClassName: string;
+    toolbarClassName?: string;
+    toolbarButton?: string;
+    toolbarButtonActive?: string;
+    defaultFont?: string;
+    dropdownButtonClassname?: string;
+    dropdownListClassname?: string;
+    dropdownItemClassname?: string;
+}
+```
+
+## Expanding project as per your use case
+
+Additionally you can make your own lexical nodes and pass it as a props to the editor
+To add this properly import lexicalComposerContext as below
+
+Doc to how to add a node
+https://lexical.dev/docs/concepts/nodes
+
+Doc to how to add a plugin
+https://lexical.dev/docs/react/create_plugin
+
+```js
+import {useLexicalComposerContext} from "lexical-react-editor";
+```
+
+```js
+<Editor
+    theme={{
+        ...defaultEditorTheme,
+        editorClassName: 'yourEditorClassName'
+    }}
+    nodes={[
+        customParagraphNode,
+        orderedListNode,
+    ]}
+>
+</Editor>
 ```
