@@ -1,6 +1,6 @@
 {
   "name": "lexical-react-editor",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "license": "MIT",
   "type": "module",
   "main": "dist/bundle/index.umd.js",
