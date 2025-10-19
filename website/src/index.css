@@ -1,68 +1,132 @@
+p {
+   margin: 0;
+}
+
+.bold {
+
+   font-weight: 600;
+
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    /* Text Colors */
+    --primary-text-color: black;
+    --secondary-text-color: white;
+    --p2-text-color: #938d8d;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    /*  background colors */
+    --primary-background-color: white;
+    --secondary-background-color: #641616;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+    font-family: "Winky Rough";
+    margin: 0;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    font-family: "Winky Rough";
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.italics {
+
+   font-style: italic;
+
+}
+
+span {
+    font-size: 12px;
+}
+
+.underline {
+   text-decoration: underline;
+}
+
+.line-through {
+   text-decoration: line-through;
+}
+
+.line-through-strike {
+   text-decoration: underline line-through;
+}
+
+/*  Fonts */
+
+@font-face {
+  font-family: 'OVSoge-Black';
+  src: url('/src/assets/fonts/OVSoge-Black.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick';
+  src: url('/src/assets/fonts/Quicky Nick.otf');
+}
+
+@font-face {
+  font-family: 'Gantians';
+  src: url('/src/assets/fonts/Gantians.otf');
+}
+
+@font-face {
+  font-family: 'OVSoge-Bold';
+  src: url('/src/assets/fonts/OVSoge-Bold.otf');
+}
+
+@font-face {
+  font-family: 'OVSoge-Regular';
+  src: url('/src/assets/fonts/OVSoge-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick 3D';
+  src: url('/src/assets/fonts/Quicky Nick 3D.otf');
+}
+
+@font-face {
+  font-family: 'Quicky Nick Condensed Straight';
+  src: url('/src/assets/fonts/Quicky Nick Condensed Straight.otf');
+}
+
+@font-face {
+  font-family: 'QuickyNickExpanded';
+  src: url('/src/assets/fonts/QuickyNickExpanded.otf');
+}
+
+@font-face {
+  font-family: 'QuickyNickGradient';
+  src: url('/src/assets/fonts/QuickyNickGradient.otf');
+}
+
+@font-face {
+    font-family: 'druk-wide-bold';
+    src: url('/src/assets/fonts/DrukWideBold.ttf');
+}
+
+@font-face {
+    font-family: 'vanteque';
+    src: url('/src/assets/fonts/VANTEQU.otf');
+}
+
+
+.bottomMainContainer {
+    display: flex;
+    flex: 1;
+
+    .mainContainer {
+
+        display: flex;
+        flex: 1 1;
+        flex-direction: column;
+        position: relative;
+
+    }
+}
+
+.appContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
 }

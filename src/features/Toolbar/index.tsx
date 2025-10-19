@@ -11,7 +11,7 @@ import AddIndent from "@/features/Toolbar/sections/addIndent";
 import RemoveIndent from "@/features/Toolbar/sections/removeIndent";
 import {Bold, Italic, StrikeThrough, Underline} from "@/features/Toolbar/sections/commonTextControls.js";
 import {AlignCenter, AlignJustify, AlignLeft, AlignRight} from "@/features/Toolbar/sections/paragraphStyling.js";
-
+import '../../styles/toolbar.css'
 
 export const Toolbar = () => {
 
@@ -19,6 +19,7 @@ export const Toolbar = () => {
 
 
         <ToolBar>
+
             <TRow>
 
                 <TSection>
