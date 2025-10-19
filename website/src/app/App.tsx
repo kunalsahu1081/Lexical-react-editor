@@ -1,7 +1,6 @@
-import Editor from "../features/editor/editor";
-import Toolbar from "@/features/Toolbar";
 import Header from "@/components/header/header";
 import Sidemenu from "@/components/sidemenu";
+import {Editor, Toolbar} from "lexical-react-editor";
 
 function App() {
 
